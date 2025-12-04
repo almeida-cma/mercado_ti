@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ Desafio Back-end - A Lógica Invisível</title>
+    <style>
+        :root {
+            --primary: #00b4d8;
+            --secondary: #0077b6;
+            --success: #2ec4b6;
+            --warning: #ff9f1c;
+            --danger: #e71d36;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            padding: 30px;
+            background: #1a1a2e;
+            color: #00ff88;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+        
+        .terminal {
+            background: #0d1b2a;
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #415a77;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.2);
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #415a77;
+            border-radius: 5px;
+            background: #1b263b;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            min-width: 200px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            background: var(--primary);
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .log {
+            background: #1b263b;
+            border: 1px solid #415a77;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .log-success {
+            color: var(--success);
+        }
+        
+        .log-warning {
+            color: var(--warning);
+        }
+        
+        .log-error {
+            color: var(--danger);
+        }
+        
+        .database {
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .database h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .product-card {
+            background: #1b263b;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #415a77;
+        }
+        
+        .product-card h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stock {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+        
+        .in-stock {
+            color: var(--success);
+        }
+        
+        .out-of-stock {
+            color: var(--danger);
+        }
+        
+        .explanation {
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .explanation h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .code-snippet {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ Terminal do Back-end</h1>
+        <p class="intro">Você é o <strong>Mestre da Lógica</strong> que processa dados, gerencia informações e faz a mágica acontecer nos bastidores!</p>
+        
+        <div class="terminal">
+            <div class="input-area">
+                <input type="number" id="productId" placeholder="Digite o ID do produto (101, 102 ou 103)" min="101" max="103">
+                <button onclick="processOrder()">🚀 Processar Pedido</button>
+            </div>
+            
+            <div class="log" id="log">
+&gt; Sistema inicializado. Aguardando requisições...
+&gt; Banco de dados conectado.
+&gt; Serviço de pedidos ativo.
+            </div>
+        </div>
+        
+        <div class="database">
+            <h3>📦 Banco de Dados - Estoque Atual</h3>
+            <div class="product-grid" id="productGrid">
+                <!-- Produtos serão inseridos via JavaScript -->
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>💡 O que é Back-end?</h3>
+            <p>Back-end é a parte invisível dos sistemas que processa dados, gerencia informações e executa a lógica de negócio. É como a cozinha de um restaurante - os clientes não veem, mas é onde a mágica acontece!</p>
+            
+            <h3>🔧 O que você está fazendo aqui:</h3>
+            <ul>
+                <li>Processando pedidos de uma loja virtual</li>
+                <li>Verificando estoque em tempo real</li>
+                <li>Atualizando o banco de dados</li>
+                <li>Retornando respostas do servidor</li>
+            </ul>
+            
+            <div class="code-snippet">
+// JavaScript - Simulação de Back-end<br>
+const database = {<br>
+&nbsp;&nbsp;101: { nome: "Mouse Gamer", estoque: 5, preco: 89.90 },<br>
+&nbsp;&nbsp;102: { nome: "Teclado Mecânico", estoque: 0, preco: 249.90 },<br>
+&nbsp;&nbsp;103: { nome: "Monitor 24\"", estoque: 2, preco: 899.90 }<br>
+};<br><br>
+function processarPedido(id) {<br>
+&nbsp;&nbsp;if (!database[id]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return { erro: "404 - Produto não encontrado" };<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;if (database[id].estoque === 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return { erro: "409 - Produto sem estoque" };<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;database[id].estoque--;<br>
+&nbsp;&nbsp;return { sucesso: `Pedido processado! ${database[id].nome} vendido.` };<br>
+}
+            </div>
+            
+            <p><strong>Dica:</strong> Tente comprar o produto 102 (Teclado Mecânico) para ver como o sistema lida com falta de estoque!</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulação de banco de dados
+        const database = {
+            101: { nome: "Mouse Gamer", estoque: 5, preco: 89.90 },
+            102: { nome: "Teclado Mecânico", estoque: 0, preco: 249.90 },
+            103: { nome: "Monitor 24\"", estoque: 2, preco: 899.90 }
+        };
+
+        function updateProductGrid() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            Object.keys(database).forEach(id => {
+                const product = database[id];
+                const stockClass = product.estoque > 0 ? 'in-stock' : 'out-of-stock';
+                const stockText = product.estoque > 0 ? `${product.estoque} em estoque` : 'ESGOTADO';
+                
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <h4>${product.nome}</h4>
+                        <p>ID: ${id}</p>
+                        <p>Preço: R$ ${product.preco.toFixed(2)}</p>
+                        <p class="stock ${stockClass}">${stockText}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function processOrder() {
+            const productId = document.getElementById('productId').value;
+            const log = document.getElementById('log');
+            
+            log.innerHTML += `\n\n> Recebendo pedido para produto ID: ${productId}...`;
+            log.scrollTop = log.scrollHeight;
+            
+            setTimeout(() => {
+                if (!database[productId]) {
+                    log.innerHTML += `\n❌ ERRO 404: Produto não encontrado no sistema.`;
+                    log.classList.add('log-error');
+                } else if (database[productId].estoque === 0) {
+                    log.innerHTML += `\n⚠️ ERRO 409: ${database[productId].nome} está sem estoque.`;
+                    log.classList.add('log-warning');
+                } else {
+                    database[productId].estoque--;
+                    log.innerHTML += `\n✅ SUCESSO: ${database[productId].nome} vendido!`;
+                    log.innerHTML += `\n💰 Valor: R$ ${database[productId].preco.toFixed(2)}`;
+                    log.innerHTML += `\n📦 Estoque restante: ${database[productId].estoque}`;
+                    log.classList.add('log-success');
+                    updateProductGrid();
+                }
+                
+                log.scrollTop = log.scrollHeight;
+            }, 1500);
+        }
+
+        // Inicializar a grade de produtos
+        updateProductGrid();
+    </script>
+</body>
+</html>

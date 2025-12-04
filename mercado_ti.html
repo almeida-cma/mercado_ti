@@ -1,0 +1,2967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Journey 2025 - Seu Mapa de Carreira em TI</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, #2563eb, #0ea5e9);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6, #0ea5e9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--secondary);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background: #1e293b;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid #334155;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .nav-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-btn.completed::after {
+            content: "✓";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--success);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Data Visualization */
+        .bar-container {
+            background: #334155;
+            border-radius: 4px;
+            height: 20px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            text-align: right;
+            color: white;
+            font-size: 0.8rem;
+            padding-right: 5px;
+            line-height: 20px;
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background-color: rgba(30, 41, 59, 0.7);
+            font-weight: 600;
+        }
+
+        /* Area Explorer */
+        .area-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+        }
+
+        .area-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .area-btn {
+            background: #334155;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .area-btn:hover {
+            background: #475569;
+            transform: translateX(5px);
+        }
+
+        .area-btn.selected {
+            background: var(--primary);
+            font-weight: bold;
+        }
+
+        .area-btn.viewing {
+            border: 2px solid var(--accent);
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        .details-panel {
+            background: #1e293b;
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        /* TAGS MELHORADAS - Sistema Ligado/Desligado */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+            border-color: #60a5fa;
+        }
+
+        .tag.selected {
+            background: var(--primary);
+            color: white;
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+        }
+
+        .tag.selected::before {
+            content: "✓";
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .tag-status {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .tag.selected .tag-status {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .salary-tag {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-color: #10b981;
+        }
+
+        .salary-tag.selected {
+            background: var(--success);
+            color: white;
+        }
+
+        .remove-tag {
+            margin-left: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: 0.2s;
+        }
+
+        .remove-tag:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Match Maker */
+        .match-explanation {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .match-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .hobby-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .hobby-card {
+            background: #334155;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .hobby-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .hobby-card.active {
+            background: var(--accent);
+            color: white;
+            border-color: white;
+        }
+
+        .match-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #0f172a;
+            border-radius: 12px;
+            border-left: 5px solid var(--success);
+        }
+        
+        .match-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+        }
+        
+        .match-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Project Lab */
+        .project-card {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: var(--success);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .project-card.selected {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .project-header {
+            background: #334155;
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        .project-body {
+            padding: 1rem;
+        }
+
+        .tech-tree {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Canvas */
+        .canvas-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            color: white;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .selected-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .selected-area-tag {
+            background: var(--primary);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-area {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .remove-area:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .paper {
+            background: white;
+            color: #1e293b;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            min-height: 500px;
+            position: relative;
+        }
+
+        .paper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--gradient-primary);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .canvas-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .canvas-box h4 {
+            margin-top: 0;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .canvas-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Buttons */
+        .btn-action {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-print {
+            background: var(--primary);
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-print:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-reset {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-reset:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #475569;
+            padding: 2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .area-grid, .canvas-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media print {
+            nav, .no-print, .progress-container, footer {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .paper {
+                box-shadow: none;
+                border: 2px solid #e2e8f0;
+                page-break-inside: avoid;
+            }
+            
+            .section {
+                display: block;
+            }
+            
+            #dashboard, #explorer, #match, #lab {
+                display: none;
+            }
+            
+            #canvas {
+                display: block !important;
+            }
+        }
+
+        /* Tech Stack Recommendations */
+        .tech-recommendation {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .salary-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .salary-item {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .salary-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            background: #334155;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .quick-action-btn:hover {
+            background: #475569;
+        }
+
+        .section-guide {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 10px 0;
+        }
+
+        .editable-tags {
+            min-height: 40px;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #0f172a;
+        }
+
+        .tech-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        /* Loading e estados vazios */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Melhorias de acessibilidade */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Animações suaves para transições */
+        .smooth-transition {
+            transition: all 0.3s ease;
+        }
+
+        /* Melhorias de foco para acessibilidade */
+        button:focus-visible, 
+        .tag:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Novos estilos para melhor visualização */
+        .tech-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .tech-status.added {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .tech-status.removed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .sync-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .area-tech-summary {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Indicador de salvamento automático */
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            animation: fadeInOut 2s ease;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 6px;
+        }
+        
+        .status-in-plan {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .status-not-in-plan {
+            background: rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+        }
+        
+        .area-status {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+        
+        .project-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--success);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        /* Botões de confirmação */
+        .confirmation-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-confirm {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-confirm:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .btn-remove {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-remove:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        .current-view-indicator {
+            background: rgba(14, 165, 233, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <span style="font-size: 2rem;">🚀</span>
+        <h1>Tech Journey 2025</h1>
+    </div>
+    <div class="subtitle">Seu mapa personalizado para uma carreira de sucesso em TI</div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+</header>
+
+<nav>
+    <button class="nav-btn active" onclick="showSection('dashboard')" id="btn-dashboard">
+        📊 Panorama do Mercado
+    </button>
+    <button class="nav-btn" onclick="showSection('explorer')" id="btn-explorer">
+        🌍 Explorar Áreas
+    </button>
+    <button class="nav-btn" onclick="showSection('match')" id="btn-match">
+        ❤️ Match com TI
+    </button>
+    <button class="nav-btn" onclick="showSection('lab')" id="btn-lab">
+        🧪 Laboratório de Projetos
+    </button>
+    <button class="nav-btn" onclick="showSection('canvas')" id="btn-canvas">
+        📝 Meu Plano de Carreira
+    </button>
+</nav>
+
+<main>
+    <!-- SECTION 1: DASHBOARD -->
+    <section id="dashboard" class="section active">
+        <div class="card">
+            <h2>🔥 Panorama TI 2025 - Dados Reais</h2>
+            <div class="grid-3">
+                <div class="stat-card">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-value">95,5%</div>
+                    <div class="stat-label">Usam IA para programar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏠</div>
+                    <div class="stat-value">78,2%</div>
+                    <div class="stat-label">Preferem trabalho remoto</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-value">56,1%</div>
+                    <div class="stat-label">1ª vaga em até 1 ano</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💼</div>
+                    <div class="stat-value">31,4%</div>
+                    <div class="stat-label">Conseguiram vaga via LinkedIn</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value">37,0%</div>
+                    <div class="stat-label">Estudam menos de 2h/semana</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">😰</div>
+                    <div class="stat-value">72,4%</div>
+                    <div class="stat-label">Já sofreram de ansiedade</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>💰 Salários por Linguagem (Mensal)</h3>
+                <div id="lang-chart"></div>
+            </div>
+            <div class="card">
+                <h3>🏭 Distribuição por Área</h3>
+                <div id="role-chart"></div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>💼 Salário por Nível</h3>
+                <table>
+                    <tr><th>Nível</th><th>Salário Médio</th></tr>
+                    <tr><td>Estágio</td><td>R$ 1.743,40</td></tr>
+                    <tr><td>Júnior</td><td>R$ 4.154,21</td></tr>
+                    <tr><td>Pleno</td><td>R$ 7.840,74</td></tr>
+                    <tr><td>Sênior</td><td>R$ 15.635,35</td></tr>
+                    <tr><td>Especialista</td><td>R$ 19.290,08</td></tr>
+                </table>
+            </div>
+            <div class="card">
+                <h3>🛠️ Frameworks Mais Bem Pagos</h3>
+                <div id="framework-list"></div>
+            </div>
+        </div>
+
+        <div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: #ef4444;">
+            <h3 style="color: #ef4444;">⚠️ Saúde Mental na TI</h3>
+            <p><b>72,4% dos devs relatam ansiedade.</b> A área exige estudo constante e resiliência emocional. 
+            <b>Não é dinheiro fácil, é dinheiro merecido.</b> Cuide da sua saúde mental desde o início.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: EXPLORER -->
+    <section id="explorer" class="section">
+        <div class="card">
+            <h2>🗺️ Mapa das Áreas de TI</h2>
+            <p>Explore as áreas abaixo, veja os detalhes e <strong>confirme explicitamente</strong> quais deseja adicionar ao seu plano.</p>
+            
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="selectAllAreas()">✅ Selecionar Todas</button>
+                <button class="quick-action-btn" onclick="clearAreaSelection()">🗑️ Limpar Seleção</button>
+                <button class="quick-action-btn" onclick="showSection('canvas')">📝 Ver Meu Plano</button>
+            </div>
+
+            <div class="selected-areas" id="selected-areas-list">
+                <!-- Áreas selecionadas aparecerão aqui -->
+            </div>
+            
+            <div class="area-grid">
+                <div id="area-list" class="area-list">
+                    <!-- JS vai preencher -->
+                </div>
+
+                <div id="area-details" class="details-panel">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">👈</div>
+                        <h3>Selecione uma área ao lado</h3>
+                        <p>Explore os detalhes e decida se quer adicionar ao seu plano.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MATCH COM TI -->
+    <section id="match" class="section">
+        <div class="card">
+            <h2>❤️ Descubra Sua Carreira Ideal em TI</h2>
+            
+            <div class="match-explanation">
+                <h3>🎯 Como Funciona o Match?</h3>
+                <p>Muitos entram em TI pensando só no dinheiro e se frustram. Aqui você descobre áreas que combinam com <strong>quem você é</strong> e <strong>o que gosta de fazer</strong>.</p>
+                <div class="match-visual">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">🎮</div>
+                        <div>Seus Hobbies</div>
+                    </div>
+                    <div class="match-arrow">➡️</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">💻</div>
+                        <div>Carreira em TI</div>
+                    </div>
+                </div>
+                <p><strong>Exemplo:</strong> Quem gosta de games pode ser excelente em Front-end (cria interfaces) ou desenvolvimento de jogos.</p>
+            </div>
+
+            <h3>🔍 Qual desses descreve melhor você?</h3>
+            <p>Clique no que mais te motiva fora do computador:</p>
+            
+            <div class="hobby-grid">
+                <div class="hobby-card" onclick="checkMatch('games')">
+                    <div style="font-size: 2rem;">🎮</div>
+                    <div><strong>Videogames</strong></div>
+                    <div class="hobby-description">Gosta de desafios, estratégia e mundos virtuais</div>
+                </div>
+                
+                <div class="hobby-card" onclick="checkMatch('social')">
+                    <div style="font-size: 2rem;">📱</div>
+                    <div><strong>Redes Sociais</strong></div>
+                    <div class="hobby-description">Vive conectado, entende o que engaja as pessoas</div>
+                </div>
+                
+                <div class="hobby-card" onclick="checkMatch('money')">
+                    <div style="font-size: 2rem;">💰</div>
+                    <div><strong>Resultados & Negócios</strong></div>
+                    <div class="hobby-description">Pensa em retorno, eficiência e oportunidades</div>
+                </div>
+                
+                <div class="hobby-card" onclick="checkMatch('logic')">
+                    <div style="font-size: 2rem;">🧩</div>
+                    <div><strong>Resolver Problemas</strong></div>
+                    <div class="hobby-description">Adora quebra-cabeças e desafios lógicos</div>
+                </div>
+                
+                <div class="hobby-card" onclick="checkMatch('art')">
+                    <div style="font-size: 2rem;">🎨</div>
+                    <div><strong>Criatividade & Design</strong></div>
+                    <div class="hobby-description">Tem olho para cores, layouts e experiências visuais</div>
+                </div>
+                
+                <div class="hobby-card" onclick="checkMatch('automation')">
+                    <div style="font-size: 2rem;">⚡</div>
+                    <div><strong>Otimização</strong></div>
+                    <div class="hobby-description">Odeia tarefas repetitivas, busca eficiência</div>
+                </div>
+            </div>
+
+            <div id="match-result" class="match-result" style="display: none;">
+                <h3>✨ Seu Match Perfeito!</h3>
+                
+                <div class="match-card">
+                    <h4>🎯 Perfil Identificado: <span id="match-title"></span></h4>
+                    <p id="match-desc"></p>
+                </div>
+
+                <div class="match-card">
+                    <h4>💼 Áreas Recomendadas</h4>
+                    <div id="match-areas" style="margin: 10px 0;"></div>
+                </div>
+
+                <div class="match-card">
+                    <h4>🛠️ Tecnologias que Combinam</h4>
+                    <div id="match-tech-tags" class="tech-tags-container"></div>
+                    <small>💡 Clique nas tecnologias para adicionar/remover do seu plano</small>
+                </div>
+
+                <div class="match-card">
+                    <h4>🚀 Por que isso funciona para você?</h4>
+                    <p id="match-tip"></p>
+                </div>
+
+                <div class="quick-actions" style="margin-top:20px">
+                    <button class="btn-action" onclick="applyMatchToPlan()">
+                        ✅ Aplicar Todas ao Meu Plano
+                    </button>
+                    <button class="quick-action-btn" onclick="showSection('explorer')">
+                        🌍 Explorar essas Áreas
+                    </button>
+                    <button class="quick-action-btn" onclick="showSection('canvas')">
+                        📝 Ver Meu Plano
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: LAB PROJETOS -->
+    <section id="lab" class="section">
+        <div class="card">
+            <h2>🧪 Laboratório de Ideias</h2>
+            <p>Clique nos projetos que gostaria de desenvolver. Eles serão adicionados ao seu plano automaticamente!</p>
+            
+            <div class="grid-3">
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="JavaScript,TypeScript,React,Node.js,PostgreSQL" data-title="Dashboard de Dados Pessoais">
+                    <div class="project-header">📊 Dashboard de Dados Pessoais</div>
+                    <div class="project-body">
+                        <p>Crie visualizações dos seus hábitos (sono, estudos, exercícios).</p>
+                        <div class="tech-tree">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag salary-tag">R$ 9.5k+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="Python,FastAPI,OpenAI API" data-title="Automação com IA">
+                    <div class="project-header">🤖 Automação com IA</div>
+                    <div class="project-body">
+                        <p>Bot que resume notícias ou organiza sua agenda automaticamente.</p>
+                        <div class="tech-tree">
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">OpenAI API</span>
+                            <span class="tag salary-tag">R$ 11.6k+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="React Native,Node.js,SQLite" data-title="App de Finanças Pessoais">
+                    <div class="project-header">📱 App de Finanças Pessoais</div>
+                    <div class="project-body">
+                        <p>Controle gastos, metas e investimentos com interface intuitiva.</p>
+                        <div class="tech-tree">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">SQLite</span>
+                            <span class="tag salary-tag">R$ 9.9k+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="JavaScript,HTML5 Canvas" data-title="Clone de Jogo Simples">
+                    <div class="project-header">🎮 Clone de Jogo Simples</div>
+                    <div class="project-body">
+                        <p>Recrie Snake, Jogo da Velha ou Flappy Bird para aprender lógica.</p>
+                        <div class="tech-tree">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML5 Canvas</span>
+                            <span class="tag salary-tag">R$ 8.9k+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="Java,Spring Boot,JWT,PostgreSQL" data-title="Sistema de Login Seguro">
+                    <div class="project-header">🔐 Sistema de Login Seguro</div>
+                    <div class="project-body">
+                        <p>Implemente autenticação com JWT, hash de senhas e 2FA.</p>
+                        <div class="tech-tree">
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">JWT</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag salary-tag">R$ 11.2k+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" onclick="toggleProjectSelection(this)" data-tech="React,Node.js,MongoDB" data-title="E-commerce Básico">
+                    <div class="project-header">🛒 E-commerce Básico</div>
+                    <div class="project-body">
+                        <p>Loja virtual com carrinho, checkout e painel administrativo.</p>
+                        <div class="tech-tree">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag salary-tag">R$ 9.2k+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button class="btn-action" onclick="showSection('canvas')">
+                    📝 Ver Meu Plano Atualizado
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CANVAS -->
+    <section id="canvas" class="section">
+        <div class="no-print">
+            <h2>📝 Seu Plano de Carreira 2025</h2>
+            <p class="section-guide">
+                💡 <strong>Dica:</strong> Seu plano é atualizado automaticamente conforme você explora as outras seções! 
+                Você também pode editar diretamente aqui.
+            </p>
+        </div>
+
+        <div class="canvas-layout">
+            <!-- Form -->
+            <div class="card no-print">
+                <label for="cName">Seu Nome</label>
+                <input type="text" id="cName" placeholder="Ex: João da Silva" oninput="drawCanvas()">
+
+                <label>Áreas de Interesse</label>
+                <div class="editable-tags" id="selected-areas-canvas">
+                    <!-- Áreas selecionadas aparecerão aqui -->
+                </div>
+                <small style="color: var(--text-muted); display: block; margin-bottom: 15px;">
+                    💡 Clique nas áreas para remover • Adicione mais na aba "Explorar Áreas"
+                </small>
+
+                <label>Tecnologias Foco</label>
+                <div class="editable-tags" id="tech-tags-container">
+                    <!-- Tags de tecnologia aparecerão aqui -->
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="new-tech-input" placeholder="Digite uma tecnologia..." style="flex: 1;">
+                    <button class="quick-action-btn" onclick="addCustomTechnology()">+ Add</button>
+                </div>
+                <small style="color: var(--text-muted); display: block; margin-bottom: 15px;">
+                    💡 Clique nas tecnologias para remover • Adicione mais nas abas anteriores
+                </small>
+
+                <label>Projetos de Portfólio</label>
+                <div class="editable-tags" id="project-tags-container">
+                    <!-- Projetos selecionadas aparecerão aqui -->
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="new-project-input" placeholder="Digite um projeto..." style="flex: 1;">
+                    <button class="quick-action-btn" onclick="addCustomProject()">+ Add</button>
+                </div>
+                <small style="color: var(--text-muted); display: block; margin-bottom: 15px;">
+                    💡 Clique nos projetos para remover • Adicione mais na aba "Laboratório"
+                </small>
+
+                <label for="cSalary">Meta Salarial (2 anos - Pleno)</label>
+                <input type="text" id="cSalary" placeholder="R$ 7.840,74" value="R$ 7.840,74" oninput="drawCanvas()">
+                
+                <label for="cHours">Horas de Estudo/Semana</label>
+                <select id="cHours" onchange="drawCanvas()">
+                    <option>2 horas (Mínimo - igual a 37% dos devs)</option>
+                    <option selected>5 horas (Recomendado - acima da média)</option>
+                    <option>10 horas (Hardcore - destaque garantido)</option>
+                </select>
+
+                <label for="cMotive">Motivação Principal</label>
+                <input type="text" id="cMotive" placeholder="Ex: Trabalhar remoto, liberdade geográfica" oninput="drawCanvas()">
+
+                <button class="btn-action btn-print" onclick="window.print()">
+                    🖨️ Imprimir / Salvar PDF
+                </button>
+
+                <button class="btn-reset" onclick="resetAllData()">
+                    🔄 Resetar Tudo e Começar do Zero
+                </button>
+            </div>
+
+            <!-- Paper Visualization -->
+            <div class="paper">
+                <div style="border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+                    <h2 style="margin:0; color:#1e293b">PLANO DE CARREIRA TI 2025</h2>
+                    <span style="font-size:0.8rem; color:#64748b">Baseado em Dados Reais do Mercado</span>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <small style="color:#64748b; text-transform:uppercase; font-weight:bold">Profissional</small>
+                        <div id="outName" style="font-size:1.5rem; font-weight:bold">Seu Nome</div>
+                    </div>
+                    <div>
+                        <small style="color:#64748b; text-transform:uppercase; font-weight:bold">Áreas de Foco</small>
+                        <div id="outArea" style="font-size:1.1rem; color:#3b82f6; font-weight:bold">Selecione áreas de interesse</div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+
+                <div class="salary-comparison">
+                    <div class="salary-item">
+                        <small>💰 Meta Salarial (2 anos)</small>
+                        <div class="salary-value" id="outSalary">R$ 7.840,74</div>
+                        <small>Média de pleno no mercado</small>
+                    </div>
+                    <div class="salary-item">
+                        <small>📚 Carga de Estudo</small>
+                        <div class="salary-value" id="outHours">5h / semana</div>
+                        <small>Acima da média dos devs</small>
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h4 style="color:#3b82f6; margin-bottom:10px">🛠️ Tech Stack (O que vou dominar)</h4>
+                    <div id="outTech" style="background:#f1f5f9; padding:15px; margin-top:5px; border-radius:4px; border-left: 4px solid #3b82f6; min-height: 60px;">
+                        Selecione áreas e tecnologias nas abas anteriores
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h4 style="color:#10b981; margin-bottom:10px">🚀 Projetos de Portfólio (Mão na Massa)</h4>
+                    <div id="outProject" style="background:#f0fdf4; padding:15px; margin-top:5px; border-radius:4px; border-left: 4px solid #10b981; min-height: 60px;">
+                        Selecione projetos na aba Laboratório
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h4 style="color:#f59e0b; margin-bottom:10px">🎯 Motivação Principal</h4>
+                    <div id="outMotive" style="background:#fffbeb; padding:15px; margin-top:5px; border-radius:4px; border-left: 4px solid #f59e0b; min-height: 20px;">
+                        ...
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h4 style="color:#8b5cf6; margin-bottom:10px">📋 Próximos Passos (Primeiros 3 meses)</h4>
+                    <ul style="padding-left: 20px;">
+                        <li>Completar curso básico das tecnologias escolhidas</li>
+                        <li>Iniciar projeto de portfólio prático</li>
+                        <li>Participar de comunidades online (Discord, GitHub)</li>
+                        <li>Atualizar LinkedIn com foco na área escolhida</li>
+                        <li>Estudar inglês técnico (30min/dia)</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top:40px; border-top: 2px dashed #cbd5e1; padding-top:10px; text-align:center; font-size:0.8rem; color:#94a3b8">
+                    Comprometo-me a seguir este plano para alcançar minha primeira vaga ou promoção em até 12-18 meses, 
+                    mantendo o equilíbrio entre estudo consistente e saúde mental.
+                    <br><br>
+                    __________________________________________<br>
+                    Assinatura
+                </div>
+
+                <div style="margin-top:20px; font-size:0.7rem; color:#64748b; text-align:center">
+                    Dados baseados na Pesquisa Salarial de Programadores BR 2024-2025 | Tech Journey 2025
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    Dados baseados na Pesquisa Salarial de Programadores BR (2024-2025) e insights de mercado.<br>
+    Material didático para jovens iniciantes em TI - Tech Journey 2025
+</footer>
+
+<script>
+    // --- DADOS REAIS DA PESQUISA ---
+    const languages = [
+        { name: "Rust", salary: 17972, pct: 100 },
+        { name: "C++", salary: 15857, pct: 88 },
+        { name: "Go", salary: 14319, pct: 80 },
+        { name: "Java", salary: 10735, pct: 60 },
+        { name: "C#", salary: 10195, pct: 57 },
+        { name: "Python", salary: 9506, pct: 53 },
+        { name: "JavaScript", salary: 8896, pct: 50 },
+        { name: "TypeScript", salary: 9627, pct: 54 }
+    ];
+
+    const roles = [
+        { name: "Full-Stack", pct: 37.42 },
+        { name: "Back-End", pct: 30.06 },
+        { name: "Front-End", pct: 9.06 },
+        { name: "Dados/BI", pct: 5.45 },
+        { name: "Mobile", pct: 5.40 },
+        { name: "DevOps", pct: 1.92 },
+        { name: "QA/Testes", pct: 1.69 }
+    ];
+
+    const frameworks = [
+        { name: "FastAPI", salary: 11638 },
+        { name: "Spring Boot", salary: 11239 },
+        { name: ".NET Core", salary: 10365 },
+        { name: "Node.js", salary: 9976 },
+        { name: "Next.js", salary: 9339 },
+        { name: "React", salary: 9224 },
+        { name: "Flutter", salary: 8975 },
+        { name: "Laravel", salary: 8911 }
+    ];
+
+    const areasData = {
+        "fullstack": {
+            title: "Full-Stack",
+            icon: "🛠️",
+            desc: "Desenvolve tanto a parte visual (front-end) quanto a lógica do servidor (back-end).",
+            challenges: "Precisa dominar muitas tecnologias; Alta demanda por versatilidade.",
+            products: "Aplicações web completas, sistemas de gestão, plataformas EAD.",
+            companies: "Startups, empresas de produto digital, consultorias.",
+            salary: "R$ 4.500 - R$ 15.000+",
+            technologies: ["JavaScript/TypeScript", "React", "Node.js", "Next.js", "PostgreSQL", "AWS"],
+            demand: "37,42% das vagas",
+            salaryJr: "R$ 4.000 - R$ 5.500"
+        },
+        "backend": {
+            title: "Back-End",
+            icon: "⚙️",
+            desc: "Foca na lógica de negócio, banco de dados, APIs e integrações.",
+            challenges: "Segurança, performance, escalabilidade e arquitetura de sistemas.",
+            products: "APIs RESTful, microsserviços, sistemas de processamento.",
+            companies: "Bancos, fintechs, e-commerces, grandes corporações.",
+            salary: "R$ 4.200 - R$ 16.000+",
+            technologies: ["Java", "Spring Boot", "C#", ".NET", "Python", "PostgreSQL", "Docker"],
+            demand: "30,06% das vagas",
+            salaryJr: "R$ 4.200 - R$ 5.800"
+        },
+        "frontend": {
+            title: "Front-End",
+            icon: "🎨",
+            desc: "Desenvolve a interface que os usuários interagem, focando em experiência do usuário.",
+            challenges: "Design responsivo, performance, acessibilidade e compatibilidade entre navegadores.",
+            products: "Interfaces web, aplicações SPA, componentes reutilizáveis.",
+            companies: "Agências digitais, startups, empresas de produto.",
+            salary: "R$ 3.800 - R$ 12.000+",
+            technologies: ["JavaScript/TypeScript", "React", "Vue.js", "CSS/SASS", "Next.js"],
+            demand: "9,06% das vagas",
+            salaryJr: "R$ 3.800 - R$ 5.200"
+        },
+        "mobile": {
+            title: "Mobile",
+            icon: "📱",
+            desc: "Desenvolve aplicativos para dispositivos móveis (iOS e Android).",
+            challenges: "Performance em dispositivos limitados, diferentes tamanhos de tela, publicação nas stores.",
+            products: "Aplicativos nativos e híbridos, PWAs (Progressive Web Apps).",
+            companies: "Startups, empresas de tecnologia, bancos digitais.",
+            salary: "R$ 4.000 - R$ 14.000+",
+            technologies: ["React Native", "Flutter", "Swift (iOS)", "Kotlin (Android)", "Firebase"],
+            demand: "5,40% das vagas",
+            salaryJr: "R$ 4.000 - R$ 5.500"
+        },
+        "dados": {
+            title: "Dados / BI",
+            icon: "📊",
+            desc: "Trabalha com análise, processamento e visualização de dados para insights de negócio.",
+            challenges: "Qualidade dos dados, volume de informação, estatística e machine learning.",
+            products: "Dashboards, relatórios automatizados, modelos preditivos, ETLs.",
+            companies: "Empresas de varejo, fintechs, healthcare, consultorias.",
+            salary: "R$ 4.500 - R$ 18.000+",
+            technologies: ["Python", "SQL", "Power BI", "Pandas", "PySpark", "Airflow"],
+            demand: "5,45% das vagas",
+            salaryJr: "R$ 4.500 - R$ 6.000"
+        },
+        "devops": {
+            title: "DevOps / SRE",
+            icon: "☁️",
+            desc: "Automatiza processos entre desenvolvimento e operações, garantindo entrega contínua.",
+            challenges: "Alta responsabilidade (disponibilidade dos sistemas), complexidade de infraestrutura.",
+            products: "Pipelines de CI/CD, infraestrutura como código, monitoramento.",
+            companies: "Tech companies, bancos, empresas com produtos digitais.",
+            salary: "R$ 5.000 - R$ 20.000+",
+            technologies: ["Docker", "Kubernetes", "AWS/Azure", "Terraform", "Jenkins", "Linux"],
+            demand: "1,92% das vagas",
+            salaryJr: "R$ 5.000 - R$ 7.000"
+        },
+        "qa": {
+            title: "QA / Testes",
+            icon: "🐞",
+            desc: "Garante a qualidade do software através de testes manuais e automatizados.",
+            challenges: "Criar cenários de teste abrangentes, automação de testes, pensamento crítico.",
+            products: "Scripts de teste, relatórios de bugs, planos de teste.",
+            companies: "Todas as empresas de software, consultorias de teste.",
+            salary: "R$ 3.500 - R$ 10.000+",
+            technologies: ["Selenium", "Cypress", "Jest", "Postman", "Appium"],
+            demand: "1,69% das vagas",
+            salaryJr: "R$ 3.500 - R$ 4.800"
+        },
+        "seguranca": {
+            title: "Segurança",
+            icon: "🔐",
+            desc: "Protege sistemas contra vulnerabilidades e ataques cibernéticos.",
+            challenges: "Estar sempre atualizado sobre novas ameaças, pensamento de 'adversário'.",
+            products: "Auditorias de segurança, políticas, testes de invasão.",
+            companies: "Bancos, governo, consultorias especializadas.",
+            salary: "R$ 5.500 - R$ 22.000+",
+            technologies: ["Kali Linux", "Wireshark", "Metasploit", "Python", "OWASP"],
+            demand: "0,63% das vagas",
+            salaryJr: "R$ 5.500 - R$ 7.500"
+        },
+        "rpa": {
+            title: "RPA / Automação",
+            icon: "🤖",
+            desc: "Desenvolve robôs para automatizar tarefas repetitivas em sistemas.",
+            challenges: "Entender processos de negócio, lidar com exceções, integração com sistemas legados.",
+            products: "Bots de automação, scripts para planilhas, processos automatizados.",
+            companies: "Empresas com processos repetitivos, consultorias de automação.",
+            salary: "R$ 3.800 - R$ 12.000+",
+            technologies: ["Python", "UiPath", "Automation Anywhere", "Selenium", "Power Automate"],
+            demand: "0,82% das vagas",
+            salaryJr: "R$ 3.800 - R$ 5.200"
+        }
+    };
+
+    // --- DADOS DO MATCH COMPLETOS ---
+    const matchData = {
+        'games': {
+            title: "Criador de Experiências",
+            desc: "Você gosta de desafios, imersão e interatividade. Tem talento para criar mundos digitais envolventes e experiências que cativam os usuários.",
+            areas: [
+                { name: "Front-end", reason: "Cria interfaces interativas como em games" },
+                { name: "Desenvolvimento de Games", reason: "Desenvolve jogos e mecânicas complexas" },
+                { name: "Mobile", reason: "Cria apps com UX gamificada" }
+            ],
+            techs: ["JavaScript", "Unity", "C#", "HTML5 Canvas", "Three.js"],
+            tip: "🎮 Sua experiência com games é um superpoder! Você entende intuitivamente o que torna uma experiência digital envolvente. Comece com JavaScript para criar jogos web simples, depois explore Unity (C#) para projetos mais complexos. O mercado de games no Brasil cresce 10% ao ano!",
+            areaKeys: ["frontend", "mobile"],
+            insights: [
+                "💡 Seu conhecimento de games te dá vantagem em criar interfaces intuitivas",
+                "🎯 Desenvolvedores de games podem ganhar R$ 8k+ como plenos",
+                "🚀 72% dos usuários preferem apps com elementos gamificados"
+            ]
+        },
+        'social': {
+            title: "Conector Digital", 
+            desc: "Você entende o que engaja pessoas e cria conexões. Tem talento para desenvolver produtos que milhões de pessoas usam diariamente e amam compartilhar.",
+            areas: [
+                { name: "Front-end", reason: "Desenvolve interfaces sociais e interativas" },
+                { name: "Mobile", reason: "Cria apps que vivem no bolso dos usuários" },
+                { name: "UI/UX", reason: "Entende o que faz as pessoas se conectarem" }
+            ],
+            techs: ["React", "React Native", "TypeScript", "Figma", "Node.js"],
+            tip: "📱 Seu entendimento de redes sociais é raro e valioso! Use essa habilidade para criar produtos que as pessoas realmente querem usar. React e React Native são perfeitos para você - uma stack que serve tanto web quanto mobile. Profissionais com essa combinação podem chegar a R$ 12k como plenos.",
+            areaKeys: ["frontend", "mobile"],
+            insights: [
+                "💡 Apps sociais são os mais baixados nas stores",
+                "🎯 React Native devs ganham em média R$ 9.500",
+                "🚀 85% do tempo no celular é gasto em apps sociais"
+            ]
+        },
+        'money': {
+            title: "Estrategista de Resultados",
+            desc: "Você pensa em retorno, eficiência e oportunidades. Tem mentalidade analítica perfeita para áreas que movem o dinheiro e tomam decisões estratégicas.",
+            areas: [
+                { name: "Back-end", reason: "Desenvolve a lógica que sustenta negócios" },
+                { name: "Dados/BI", reason: "Transforma dados em insights valiosos" },
+                { name: "Fintechs", reason: "Trabalha no coração da indústria financeira" }
+            ],
+            techs: ["Python", "SQL", "Java", "Spring Boot", "Power BI"],
+            tip: "💰 Sua mentalidade orientada a resultados é seu maior diferencial! Em fintechs e áreas de dados, essa característica é mais valorizada que apenas conhecimento técnico. Python + SQL é a combinação mais versátil - com ela você pode trabalhar em dados, back-end ou automação. Salários em fintechs chegam a R$ 15k para plenos.",
+            areaKeys: ["backend", "dados"],
+            insights: [
+                "💡 Fintechs pagam 25% acima da média do mercado",
+                "🎯 Cientistas de dados plenos ganham R$ 12k+",
+                "🚀 Python é a linguagem que mais cresce no mercado"
+            ]
+        },
+        'logic': {
+            title: "Solucionador de Problemas",
+            desc: "Seu forte é a lógica pura e a resolução de quebra-cabeças complexos. Você brilha em desafios que exigem pensamento estruturado e soluções elegantes.",
+            areas: [
+                { name: "Back-end", reason: "Foca em algoritmos e arquitetura de sistemas" },
+                { name: "DevOps", reason: "Otimiza processos complexos em escala" },
+                { name: "Segurança", reason: "Desafia hackers com pensamento lógico" }
+            ],
+            techs: ["Java", "Go", "Python", "Algorithms", "Linux"],
+            tip: "🧩 Sua mente analítica é perfeita para os problemas mais complexos da TI! Java ainda domina o mercado corporativo (37% das vagas back-end), enquanto Go está crescendo rapidamente em sistemas de alta performance. Profissionais de segurança cibernética estão entre os mais bem pagos - salários sênior chegam a R$ 22k.",
+            areaKeys: ["backend", "devops", "seguranca"],
+            insights: [
+                "💡 DevOps é a área que mais cresce em TI (+40% ao ano)",
+                "🎯 Especialistas em segurança ganham R$ 18k+",
+                "🚀 Java devs têm a maior taxa de empregabilidade"
+            ]
+        },
+        'art': {
+            title: "Artista Digital",
+            desc: "Sua criatividade encontra na tecnologia o pincel perfeito. Você transforma ideias abstratas em experiências visuais incríveis que encantam os usuários.",
+            areas: [
+                { name: "Front-end", reason: "Dá vida às interfaces com código criativo" },
+                { name: "UI/UX", reason: "Desenha experiências que encantam usuários" },
+                { name: "Motion Design", reason: "Anima e conta histórias visuais" }
+            ],
+            techs: ["JavaScript", "CSS", "React", "Figma", "Three.js"],
+            tip: "🎨 Seu olho para design é raro na TI - use isso a seu favor! Enquanto muitos devs focam apenas na funcionalidade, você cria produtos visualmente marcantes. CSS avançado e React são suas ferramentas principais. Designers UI/UX com conhecimento técnico podem ganhar 30% a mais que os demais.",
+            areaKeys: ["frontend"],
+            insights: [
+                "💡 Boa UX aumenta conversão em até 400%",
+                "🎯 UI/UX designers técnicos ganham R$ 8k+",
+                "🚀 94% dos usuários julgam sites pela aparência"
+            ]
+        },
+        'automation': {
+            title: "Mestre da Eficiência", 
+            desc: "Você odeia tarefas repetitivas e sempre busca maneiras mais inteligentes de fazer as coisas. Sua missão é eliminar o trabalho manual desnecessário.",
+            areas: [
+                { name: "DevOps", reason: "Automatiza processos de desenvolvimento" },
+                { name: "RPA", reason: "Cria robôs para tarefas repetitivas" },
+                { name: "Back-end", reason: "Otimiza sistemas para performance máxima" }
+            ],
+            techs: ["Python", "Docker", "Kubernetes", "Bash", "AWS"],
+            tip: "⚡ Sua 'preguiça inteligente' (no bom sentido!) é um superpoder! Em um mundo cada vez mais automatizado, sua habilidade de identificar e eliminar processos manuais é extremamente valiosa. Python é rei da automação - combine com Docker para criar soluções portáteis. Profissionais de automação têm taxa de empregabilidade de 95%.",
+            areaKeys: ["devops", "rpa"],
+            insights: [
+                "💡 RPA pode reduzir custos em até 65%",
+                "🎯 DevOps engineers plenos ganham R$ 11k+",
+                "🚀 Empresas buscam automação pós-pandemia"
+            ]
+        }
+    };
+
+    // --- SISTEMA DE EVENTOS CENTRALIZADO ---
+    class TechJourneyEvents {
+        constructor() {
+            this.listeners = new Map();
+            this.setupGlobalEventListeners();
+        }
+
+        // Registrar listener para um tipo de evento
+        on(eventType, callback) {
+            if (!this.listeners.has(eventType)) {
+                this.listeners.set(eventType, new Set());
+            }
+            this.listeners.get(eventType).add(callback);
+        }
+
+        // Disparar evento
+        emit(eventType, data) {
+            if (this.listeners.has(eventType)) {
+                this.listeners.get(eventType).forEach(callback => {
+                    try {
+                        callback(data);
+                    } catch (error) {
+                        console.error(`Error in ${eventType} listener:`, error);
+                    }
+                });
+            }
+        }
+
+        // Configurar listeners globais
+        setupGlobalEventListeners() {
+            // Evento quando tecnologias mudam
+            this.on('technologiesChanged', (data) => {
+                updateAllTechVisuals();
+                saveToLocalStorage();
+            });
+
+            // Evento quando áreas mudam
+            this.on('areasChanged', (data) => {
+                updateAllAreaVisuals();
+                saveToLocalStorage();
+            });
+
+            // Evento quando projetos mudam
+            this.on('projectsChanged', (data) => {
+                updateAllProjectVisuals();
+                saveToLocalStorage();
+            });
+        }
+    }
+
+    // --- VARIÁVEIS GLOBAIS ---
+    const eventSystem = new TechJourneyEvents();
+    
+    let userProgress = {
+        dashboard: false,
+        explorer: false,
+        match: false,
+        lab: false,
+        canvas: false
+    };
+
+    let selectedAreas = new Set();
+    let selectedTechnologies = new Set();
+    let selectedProjects = new Set();
+    
+    // Rastrear tecnologias por área para remoção inteligente
+    let areaTechnologiesMap = new Map();
+    
+    // Rastrear tecnologias por projeto para remoção inteligente
+    let projectTechnologiesMap = new Map();
+
+    // Área atualmente sendo visualizada (apenas navegação)
+    let currentViewingArea = null;
+
+    // --- SISTEMA DE LOCALSTORAGE ---
+
+    // Salvar dados no localStorage
+    function saveToLocalStorage() {
+        const userData = {
+            selectedAreas: Array.from(selectedAreas),
+            selectedTechnologies: Array.from(selectedTechnologies),
+            selectedProjects: Array.from(selectedProjects),
+            areaTechnologiesMap: Array.from(areaTechnologiesMap),
+            projectTechnologiesMap: Array.from(projectTechnologiesMap),
+            userProgress: userProgress,
+            formData: {
+                name: document.getElementById('cName').value,
+                salary: document.getElementById('cSalary').value,
+                hours: document.getElementById('cHours').value,
+                motive: document.getElementById('cMotive').value
+            },
+            lastSaved: new Date().toISOString()
+        };
+        
+        localStorage.setItem('techJourney2025', JSON.stringify(userData));
+        showSaveIndicator();
+    }
+
+    // Carregar dados do localStorage
+    function loadFromLocalStorage() {
+        const saved = localStorage.getItem('techJourney2025');
+        if (saved) {
+            try {
+                const userData = JSON.parse(saved);
+                
+                // Restaurar conjuntos
+                selectedAreas = new Set(userData.selectedAreas || []);
+                selectedTechnologies = new Set(userData.selectedTechnologies || []);
+                selectedProjects = new Set(userData.selectedProjects || []);
+                areaTechnologiesMap = new Map(userData.areaTechnologiesMap || []);
+                projectTechnologiesMap = new Map(userData.projectTechnologiesMap || []);
+                userProgress = userData.userProgress || {
+                    dashboard: false,
+                    explorer: false,
+                    match: false,
+                    lab: false,
+                    canvas: false
+                };
+                
+                // Restaurar dados do formulário
+                if (userData.formData) {
+                    document.getElementById('cName').value = userData.formData.name || '';
+                    document.getElementById('cSalary').value = userData.formData.salary || 'R$ 7.840,74';
+                    document.getElementById('cHours').value = userData.formData.hours || '5 horas (Recomendado - acima da média)';
+                    document.getElementById('cMotive').value = userData.formData.motive || '';
+                }
+                
+                // Atualizar interface
+                updateAllVisuals();
+                updateProgress();
+                
+                console.log('Dados carregados do localStorage');
+                showSyncNotification('loaded', 'Seu plano foi restaurado!');
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados salvos:', error);
+                // Se houver erro, começar do zero
+                initializeDefaultData();
+            }
+        } else {
+            initializeDefaultData();
+        }
+    }
+
+    // Inicializar dados padrão
+    function initializeDefaultData() {
+        selectedAreas = new Set();
+        selectedTechnologies = new Set();
+        selectedProjects = new Set();
+        areaTechnologiesMap = new Map();
+        projectTechnologiesMap = new Map();
+        userProgress = {
+            dashboard: false,
+            explorer: false,
+            match: false,
+            lab: false,
+            canvas: false
+        };
+        
+        // Marcar dashboard como concluído após carregamento
+        setTimeout(() => {
+            userProgress.dashboard = true;
+            updateProgress();
+        }, 1000);
+    }
+
+    // Mostrar indicador de salvamento
+    function showSaveIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'save-indicator';
+        indicator.textContent = '💾 Plano salvo automaticamente';
+        
+        document.body.appendChild(indicator);
+        
+        setTimeout(() => {
+            if (indicator.parentNode) {
+                document.body.removeChild(indicator);
+            }
+        }, 2000);
+    }
+
+    // --- FUNÇÕES DE SINCRONIZAÇÃO EM CASCADA ---
+
+    // Atualizar todas as visualizações de tecnologia
+    function updateAllTechVisuals() {
+        updateTechTags();
+        
+        // Atualizar tags em Explorar Áreas
+        const areaDetails = document.getElementById('area-details');
+        if (areaDetails && areaDetails.innerHTML !== '') {
+            const currentAreaTitle = areaDetails.querySelector('h2')?.textContent;
+            if (currentAreaTitle) {
+                for (let key in areasData) {
+                    if (areasData[key].title === currentAreaTitle.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').trim()) {
+                        showAreaDetails(key);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Atualizar tags no Match
+        if (document.getElementById('match-result').style.display !== 'none') {
+            const result = document.getElementById('match-result');
+            const techs = result.getAttribute('data-matched-techs');
+            if (techs) {
+                updateMatchTechTags(techs.split(','));
+            }
+        }
+        
+        // Atualizar tags nos projetos
+        updateProjectTechVisuals();
+        
+        // Atualizar status em todas as seções
+        updateAllStatusIndicators();
+    }
+
+    // Atualizar todas as visualizações de área
+    function updateAllAreaVisuals() {
+        updateAreaSelections();
+        loadExplorer(); // Recarregar a lista de áreas para atualizar seleções
+        
+        // Atualizar detalhes da área atual se estiver visível
+        const areaDetails = document.getElementById('area-details');
+        if (areaDetails && areaDetails.innerHTML !== '') {
+            const currentAreaTitle = areaDetails.querySelector('h2')?.textContent;
+            if (currentAreaTitle) {
+                for (let key in areasData) {
+                    if (areasData[key].title === currentAreaTitle.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').trim()) {
+                        showAreaDetails(key);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Atualizar status em todas as seções
+        updateAllStatusIndicators();
+    }
+
+    // Atualizar todas as visualizações de projeto
+    function updateAllProjectVisuals() {
+        updateProjectTags();
+        
+        // Atualizar seleção visual dos projetos
+        document.querySelectorAll('.project-card').forEach(card => {
+            const projectTitle = card.getAttribute('data-title');
+            card.classList.toggle('selected', selectedProjects.has(projectTitle));
+            
+            // Atualizar indicador de status nos projetos
+            updateProjectCardStatus(card);
+        });
+        
+        // Atualizar status em todas as seções
+        updateAllStatusIndicators();
+    }
+
+    // Atualizar visualizações de tecnologia nos projetos
+    function updateProjectTechVisuals() {
+        document.querySelectorAll('.project-card').forEach(card => {
+            const projectTech = card.getAttribute('data-tech');
+            if (projectTech) {
+                const techs = projectTech.split(',').map(t => t.trim());
+                techs.forEach(tech => {
+                    const tag = card.querySelector(`.tag:contains('${tech}')`);
+                    if (tag) {
+                        tag.classList.toggle('selected', selectedTechnologies.has(tech));
+                    }
+                });
+            }
+        });
+    }
+
+    // Atualizar todos os indicadores de status
+    function updateAllStatusIndicators() {
+        updateAreaStatusIndicators();
+        updateProjectStatusIndicators();
+        updateMatchStatusIndicators();
+    }
+
+    // Atualizar indicadores de status nas áreas
+	function updateAreaStatusIndicators() {
+		console.log('🔄 Atualizando indicadores de área...');
+		console.log('Áreas selecionadas:', Array.from(selectedAreas));
+		
+		document.querySelectorAll('.area-btn').forEach(btn => {
+			// PEGAR o texto do PRIMEIRO span (nome da área)
+			const areaTitleElement = btn.querySelector('span'); // Primeiro span
+			if (!areaTitleElement) {
+				console.warn('❌ Botão sem span encontrado:', btn);
+				return;
+			}
+			
+			const areaTitle = areaTitleElement.textContent.trim();
+			console.log('📋 Processando área:', areaTitle);
+			
+			let areaFound = false;
+			for (let key in areasData) {
+				// Comparar apenas o título (remover emoji e espaços extras)
+				const cleanAreaTitle = areaTitle.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').trim();
+				const cleanDataTitle = areasData[key].title.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').trim();
+				
+				if (cleanDataTitle === cleanAreaTitle) {
+					areaFound = true;
+					const isSelected = selectedAreas.has(key);
+					const isViewing = currentViewingArea === key;
+					
+					console.log(`📍 ${areaTitle} - Selecionada: ${isSelected}, Visualizando: ${isViewing}`);
+					
+					// Atualizar classes visuais
+					btn.classList.toggle('selected', isSelected);
+					btn.classList.toggle('viewing', isViewing);
+					
+					// Remover indicadores existentes
+					btn.querySelectorAll('.area-status').forEach(el => el.remove());
+					
+					// CORREÇÃO: Sempre adicionar indicador, mas com texto condicional
+					const statusEl = document.createElement('span');
+					statusEl.className = `area-status ${isSelected ? 'status-in-plan' : 'status-not-in-plan'}`;
+					statusEl.textContent = isSelected ? '✓ No plano' : '';
+					btn.appendChild(statusEl);
+					
+					break;
+				}
+			}
+			
+			if (!areaFound) {
+				console.warn('❌ Área não encontrada nos dados:', areaTitle);
+			}
+		});
+		
+		console.log('✅ Indicadores atualizados');
+	}
+
+    // Atualizar indicadores de status nos projetos
+    function updateProjectStatusIndicators() {
+        document.querySelectorAll('.project-card').forEach(card => {
+            updateProjectCardStatus(card);
+        });
+    }
+
+    // Atualizar status de um card de projeto individual
+    function updateProjectCardStatus(card) {
+        const projectTitle = card.getAttribute('data-title');
+        const isSelected = selectedProjects.has(projectTitle);
+        
+        // Remover indicadores existentes
+        card.querySelectorAll('.project-status').forEach(el => el.remove());
+        
+        if (isSelected) {
+            const statusEl = document.createElement('div');
+            statusEl.className = 'project-status';
+            statusEl.textContent = '✓';
+            card.style.position = 'relative';
+            card.appendChild(statusEl);
+        }
+    }
+
+    // Atualizar indicadores de status no Match
+    function updateMatchStatusIndicators() {
+        // Atualizar status das áreas recomendadas no match
+        const matchAreasContainer = document.getElementById('match-areas');
+        if (matchAreasContainer) {
+            matchAreasContainer.querySelectorAll('.area-match-item').forEach(item => {
+                const areaName = item.getAttribute('data-area');
+                const isSelected = Array.from(selectedAreas).some(key => 
+                    areasData[key]?.title === areaName
+                );
+                
+                // Atualizar indicador
+                const statusEl = item.querySelector('.status-indicator') || document.createElement('span');
+                statusEl.className = `status-indicator ${isSelected ? 'status-in-plan' : 'status-not-in-plan'}`;
+                statusEl.textContent = isSelected ? 'No plano' : 'Adicionar';
+                
+                if (!item.querySelector('.status-indicator')) {
+                    item.appendChild(statusEl);
+                }
+            });
+        }
+    }
+
+    // --- FUNÇÕES PRINCIPAIS ---
+
+    // Função para resetar todos os dados
+    function resetAllData() {
+        if (confirm("⚠️ Tem certeza que deseja resetar tudo? Todas as suas seleções serão perdidas e você começará do zero.")) {
+            // Limpar localStorage
+            localStorage.removeItem('techJourney2025');
+            
+            // Reinicializar dados
+            initializeDefaultData();
+            
+            // Resetar inputs
+            document.getElementById('cName').value = '';
+            document.getElementById('cSalary').value = 'R$ 7.840,74';
+            document.getElementById('cHours').selectedIndex = 1;
+            document.getElementById('cMotive').value = '';
+            document.getElementById('new-tech-input').value = '';
+            document.getElementById('new-project-input').value = '';
+            
+            // Resetar botões de navegação
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('completed');
+                if (btn.id === 'btn-dashboard') {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Resetar seleções visuais
+            document.querySelectorAll('.area-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.classList.remove('viewing');
+            });
+            document.querySelectorAll('.project-card').forEach(card => card.classList.remove('selected'));
+            document.querySelectorAll('.hobby-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('selected'));
+            
+            // Resetar área atual
+            currentViewingArea = null;
+            
+            // Resetar match result
+            document.getElementById('match-result').style.display = 'none';
+            
+            // Atualizar todas as visualizações
+            updateAllVisuals();
+            
+            // Voltar para o dashboard
+            showSection('dashboard');
+            
+            // Mostrar confirmação
+            showSyncNotification('reset', 'Todos os dados foram resetados!');
+        }
+    }
+
+    // Atualizar todas as visualizações
+    function updateAllVisuals() {
+        updateAreaSelections();
+        updateTechTags();
+        updateProjectTags();
+        drawCanvas();
+        updateProgress();
+        
+        // Atualizar todos os indicadores de status
+        updateAllStatusIndicators();
+    }
+
+    // Navegação entre seções
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-' + id).classList.add('active');
+        
+        if (!userProgress[id]) {
+            userProgress[id] = true;
+            document.getElementById('btn-' + id).classList.add('completed');
+            updateProgress();
+            saveToLocalStorage();
+        }
+
+        // Atualizar visualizações quando mudar de seção
+        if (id === 'canvas') {
+            updateCanvasSelections();
+        } else if (id === 'explorer') {
+            loadExplorer();
+        } else if (id === 'lab') {
+            updateAllProjectVisuals();
+        } else if (id === 'match') {
+            updateMatchStatusIndicators();
+        }
+    }
+
+    // Atualizar barra de progresso
+    function updateProgress() {
+        const completed = Object.values(userProgress).filter(Boolean).length;
+        const total = Object.keys(userProgress).length;
+        const percentage = (completed / total) * 100;
+        
+        document.getElementById('progress-bar').style.width = `${percentage}%`;
+    }
+
+    // Renderizar gráficos iniciais
+    function renderCharts() {
+        // Gráfico de linguagens
+        const langContainer = document.getElementById('lang-chart');
+        langContainer.innerHTML = '';
+        languages.forEach(l => {
+            langContainer.innerHTML += `
+                <div style="margin-bottom:12px">
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem">
+                        <span>${l.name}</span>
+                        <span>R$ ${l.salary.toLocaleString('pt-BR')}</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: ${l.pct/1.8}%">${l.pct}%</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Gráfico de áreas
+        const roleContainer = document.getElementById('role-chart');
+        roleContainer.innerHTML = '';
+        roles.forEach(r => {
+            roleContainer.innerHTML += `
+                <div style="margin-bottom:12px">
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem">
+                        <span>${r.name}</span>
+                        <span>${r.pct}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: ${r.pct * 2}%"></div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Lista de frameworks
+        const frameList = document.getElementById('framework-list');
+        frameList.innerHTML = '';
+        frameworks.forEach(f => {
+            frameList.innerHTML += `
+                <div style="margin-bottom:8px; display:flex; justify-content:space-between">
+                    <span>${f.name}</span>
+                    <span style="color:#10b981">R$ ${f.salary.toLocaleString('pt-BR')}</span>
+                </div>
+            `;
+        });
+
+        // Animar barras
+        setTimeout(() => {
+            document.querySelectorAll('.bar-fill').forEach(el => {
+                let w = el.style.width;
+                el.style.width = w;
+            });
+        }, 300);
+    }
+
+    // Carregar explorador de áreas
+    function loadExplorer() {
+        const list = document.getElementById('area-list');
+        list.innerHTML = "";
+        
+        for (let key in areasData) {
+            let item = areasData[key];
+            let btn = document.createElement('button');
+            btn.className = `area-btn ${selectedAreas.has(key) ? 'selected' : ''} ${currentViewingArea === key ? 'viewing' : ''}`;
+            btn.innerHTML = `
+                <span>${item.icon} ${item.title}</span> 
+                <span>${item.demand}</span>
+            `;
+            btn.onclick = () => navigateToArea(key);
+            list.appendChild(btn);
+        }
+        
+        // Atualizar indicadores de status
+        updateAreaStatusIndicators();
+    }
+
+    // --- FLUXO CORRIGIDO: NAVEGAÇÃO E CONFIRMAÇÃO ---
+
+    // Navegar para uma área (apenas visualização)
+    function navigateToArea(key) {
+        currentViewingArea = key;
+        showAreaDetails(key);
+        updateAreaStatusIndicators();
+    }
+
+    // Confirmar seleção de área (ação explícita do usuário)
+    function confirmAreaSelection(key) {
+        const area = areasData[key];
+        const wasSelected = selectedAreas.has(key);
+        
+        if (wasSelected) {
+            // REMOVER área
+            selectedAreas.delete(key);
+            removeAreaTechnologies(key);
+            showSyncNotification('removed', area.title);
+        } else {
+            // ADICIONAR área
+            selectedAreas.add(key);
+            addAreaTechnologies(key, area.technologies);
+            showSyncNotification('added', area.title);
+        }
+        
+        updateAreaSelections();
+        showAreaDetails(key); // Atualizar detalhes para refletir mudança
+        updateAreaStatusIndicators();
+        
+        // Disparar eventos
+        eventSystem.emit('areasChanged', { area: key, added: !wasSelected });
+        eventSystem.emit('technologiesChanged', { source: 'area', area: key });
+    }
+
+    // Adicionar tecnologias de uma área de forma inteligente
+    function addAreaTechnologies(areaKey, technologies) {
+        // Armazenar quais tecnologias pertencem a esta área
+        areaTechnologiesMap.set(areaKey, technologies);
+        
+        // Adicionar cada tecnologia ao conjunto
+        technologies.forEach(tech => {
+            selectedTechnologies.add(tech);
+        });
+    }
+
+    // Remover tecnologias de uma área de forma inteligente
+    function removeAreaTechnologies(areaKey) {
+        const technologiesToRemove = areaTechnologiesMap.get(areaKey) || [];
+        
+        technologiesToRemove.forEach(tech => {
+            // Verificar se esta tecnologia é usada por outras áreas selecionadas
+            let stillUsedByAreas = false;
+            for (let [otherAreaKey, otherTechs] of areaTechnologiesMap) {
+                if (otherAreaKey !== areaKey && selectedAreas.has(otherAreaKey)) {
+                    if (otherTechs.includes(tech)) {
+                        stillUsedByAreas = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Verificar se esta tecnologia é usada por projetos selecionados
+            let stillUsedByProjects = false;
+            for (let [projectKey, projectTechs] of projectTechnologiesMap) {
+                if (selectedProjects.has(projectKey)) {
+                    if (projectTechs.includes(tech)) {
+                        stillUsedByProjects = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Só remover se não for mais usada por nenhuma área selecionada E nenhum projeto selecionado
+            if (!stillUsedByAreas && !stillUsedByProjects) {
+                selectedTechnologies.delete(tech);
+            }
+        });
+        
+        // Remover do mapa
+        areaTechnologiesMap.delete(areaKey);
+    }
+
+    // Atualizar visualização das áreas selecionadas
+    function updateAreaSelections() {
+        const selectedList = document.getElementById('selected-areas-list');
+        const canvasList = document.getElementById('selected-areas-canvas');
+        
+        selectedList.innerHTML = '';
+        canvasList.innerHTML = '';
+        
+        if (selectedAreas.size === 0) {
+            selectedList.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 20px;">Nenhuma área selecionada</div>';
+            canvasList.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 10px;">Clique em "Explorar Áreas" para começar</div>';
+        } else {
+            selectedAreas.forEach(key => {
+                const area = areasData[key];
+                const tag = document.createElement('span');
+                tag.className = 'selected-area-tag';
+                tag.innerHTML = `
+                    ${area.icon} ${area.title}
+                    <span class="remove-area" onclick="removeArea('${key}')">×</span>
+                `;
+                selectedList.appendChild(tag.cloneNode(true));
+                canvasList.appendChild(tag);
+            });
+        }
+
+        drawCanvas();
+    }
+
+    // Remover área da seleção
+    function removeArea(key) {
+        const area = areasData[key];
+        selectedAreas.delete(key);
+        
+        // Remover tecnologias específicas desta área
+        removeAreaTechnologies(key);
+        
+        updateAreaSelections();
+        showSyncNotification('removed', area.title);
+        
+        // Atualizar indicadores de status
+        updateAreaStatusIndicators();
+        
+        // Disparar eventos
+        eventSystem.emit('areasChanged', { area: key, added: false });
+        eventSystem.emit('technologiesChanged', { source: 'area', area: key });
+        
+        // Atualizar painel de detalhes se esta área estava sendo mostrada
+        if (currentViewingArea === key) {
+            showAreaDetails(key);
+        }
+    }
+
+    // Selecionar todas as áreas
+    function selectAllAreas() {
+        for (let key in areasData) {
+            if (!selectedAreas.has(key)) {
+                selectedAreas.add(key);
+                addAreaTechnologies(key, areasData[key].technologies);
+            }
+        }
+        updateAreaSelections();
+        
+        // Atualizar indicadores de status
+        updateAreaStatusIndicators();
+        
+        showSyncNotification('added', 'todas as áreas');
+        
+        // Disparar eventos
+        eventSystem.emit('areasChanged', { area: 'all', added: true });
+        eventSystem.emit('technologiesChanged', { source: 'area', area: 'all' });
+    }
+
+    // Limpar seleção de áreas
+    function clearAreaSelection() {
+        // Limpar tudo
+        selectedAreas.clear();
+        areaTechnologiesMap.clear();
+        
+        // Remover tecnologias que não são usadas por projetos
+        const technologiesToKeep = new Set();
+        for (let [projectKey, projectTechs] of projectTechnologiesMap) {
+            if (selectedProjects.has(projectKey)) {
+                projectTechs.forEach(tech => technologiesToKeep.add(tech));
+            }
+        }
+        
+        // Manter apenas tecnologias usadas por projetos
+        selectedTechnologies = new Set(technologiesToKeep);
+        
+        updateAreaSelections();
+        
+        // Atualizar indicadores de status
+        updateAreaStatusIndicators();
+        
+        showSyncNotification('removed', 'todas as áreas e tecnologias');
+        
+        // Disparar eventos
+        eventSystem.emit('areasChanged', { area: 'all', added: false });
+        eventSystem.emit('technologiesChanged', { source: 'area', area: 'all' });
+    }
+
+    // Mostrar detalhes da área
+    function showAreaDetails(key) {
+        const info = areasData[key];
+        const panel = document.getElementById('area-details');
+        const isSelected = selectedAreas.has(key);
+        
+        // Calcular tecnologias novas vs existentes
+        const newTechs = info.technologies.filter(tech => !selectedTechnologies.has(tech));
+        const existingTechs = info.technologies.filter(tech => selectedTechnologies.has(tech));
+        
+        panel.innerHTML = `
+            <div class="current-view-indicator">
+                📍 Visualizando: <strong>${info.icon} ${info.title}</strong>
+            </div>
+            
+            <h2 style="color:var(--primary)">${info.icon} ${info.title}</h2>
+            <p style="font-size:1.1rem">${info.desc}</p>
+            
+            <div style="display:flex; gap:15px; margin:15px 0; flex-wrap:wrap">
+                <div style="background:rgba(59, 130, 246, 0.1); padding:8px 12px; border-radius:6px;">
+                    <strong>💰 Faixa Salarial:</strong> ${info.salary}
+                </div>
+                <div style="background:rgba(16, 185, 129, 0.1); padding:8px 12px; border-radius:6px;">
+                    <strong>👶 Júnior:</strong> ${info.salaryJr}
+                </div>
+                <div style="background:rgba(139, 92, 246, 0.1); padding:8px 12px; border-radius:6px;">
+                    <strong>📊 Demanda:</strong> ${info.demand}
+                </div>
+            </div>
+            
+            <div class="area-tech-summary">
+                <strong>🔄 Status no seu plano:</strong> 
+                <span style="color:${isSelected ? '#10b981' : '#ef4444'}">
+                    ${isSelected ? '✅ Adicionada' : '❌ Não incluída'}
+                </span>
+                <br>
+                <small>Tecnologias: ${existingTechs.length} no seu plano • ${newTechs.length} novas</small>
+            </div>
+            
+            <h4>🛠️ Tecnologias Principais</h4>
+            <div style="margin:10px 0">
+                ${info.technologies.map(tech => {
+                    const isInPlan = selectedTechnologies.has(tech);
+                    return `
+                        <span class="tag ${isInPlan ? 'selected' : ''}" 
+                              onclick="toggleTechnology('${tech}')">
+                            ${tech}
+                            <span class="tag-status">${isInPlan ? 'No plano' : 'Adicionar'}</span>
+                        </span>
+                    `;
+                }).join('')}
+            </div>
+            
+            <h4>🏋️ Desafios Reais</h4>
+            <p>${info.challenges}</p>
+            
+            <h4>📦 O que você entrega?</h4>
+            <p>${info.products}</p>
+            
+            <h4>🏢 Quem contrata?</h4>
+            <p>${info.companies}</p>
+
+            <div style="margin-top:20px; padding:10px; background:rgba(16, 185, 129, 0.1); border-left:4px solid #10b981; font-size:0.9rem">
+                💡 <strong>Dica:</strong> Esta área tem ${info.demand} das vagas. 
+                ${isSelected ? 'Já está no seu plano!' : 'Confirme abaixo para adicionar ao seu plano.'}
+            </div>
+
+            <div class="confirmation-buttons">
+                ${isSelected ? 
+                    `<button class="btn-remove" onclick="confirmAreaSelection('${key}')">
+                        ❌ Remover do Meu Plano
+                    </button>` :
+                    `<button class="btn-confirm" onclick="confirmAreaSelection('${key}')">
+                        ✅ Adicionar ao Meu Plano
+                    </button>`
+                }
+                <button class="quick-action-btn" onclick="showSection('canvas')">
+                    📝 Ver Meu Plano
+                </button>
+            </div>
+        `;
+    }
+
+    // CORREÇÃO CRÍTICA: Alternar seleção de tecnologia - VERSÃO CORRIGIDA
+    function toggleTechnology(tech) {
+        const wasSelected = selectedTechnologies.has(tech);
+        
+        if (wasSelected) {
+            selectedTechnologies.delete(tech);
+            showSyncNotification('removed', `tecnologia ${tech}`);
+        } else {
+            selectedTechnologies.add(tech);
+            showSyncNotification('added', `tecnologia ${tech}`);
+        }
+        
+        // ATUALIZAÇÃO CRÍTICA: Forçar atualização de TODAS as visualizações
+        updateAllTechVisuals();
+        updateAllAreaVisuals();
+        updateAllStatusIndicators();
+        
+        // Disparar evento
+        eventSystem.emit('technologiesChanged', { technology: tech, added: !wasSelected });
+        
+        // Atualizar canvas imediatamente
+        drawCanvas();
+    }
+
+    // Adicionar tecnologia customizada
+    function addCustomTechnology() {
+        const input = document.getElementById('new-tech-input');
+        const tech = input.value.trim();
+        if (tech && !selectedTechnologies.has(tech)) {
+            selectedTechnologies.add(tech);
+            input.value = '';
+            showSyncNotification('added', `tecnologia ${tech}`);
+            
+            // Atualizar todos os indicadores de status
+            updateAllStatusIndicators();
+            
+            // Disparar evento
+            eventSystem.emit('technologiesChanged', { technology: tech, added: true });
+        }
+    }
+
+    // Atualizar tags de tecnologia
+    function updateTechTags() {
+        const container = document.getElementById('tech-tags-container');
+        container.innerHTML = '';
+        
+        if (selectedTechnologies.size === 0) {
+            container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 10px;">Nenhuma tecnologia selecionada</div>';
+        } else {
+            selectedTechnologies.forEach(tech => {
+                const tag = document.createElement('span');
+                tag.className = 'tag selected';
+                tag.innerHTML = `${tech} <span class="remove-tag" onclick="toggleTechnology('${tech}')">×</span>`;
+                container.appendChild(tag);
+            });
+        }
+    }
+
+    // Sistema de match por hobbies
+    function checkMatch(type) {
+        const result = document.getElementById('match-result');
+        const matchInfo = matchData[type];
+        
+        // Reset e destacar seleção
+        document.querySelectorAll('.hobby-card').forEach(c => c.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        // Preencher resultados
+        document.getElementById('match-title').textContent = matchInfo.title;
+        document.getElementById('match-desc').textContent = matchInfo.desc;
+        document.getElementById('match-tip').textContent = matchInfo.tip;
+        
+        // Áreas recomendadas
+        const areasContainer = document.getElementById('match-areas');
+        areasContainer.innerHTML = matchInfo.areas.map(area => `
+            <div class="area-match-item" data-area="${area.name}" style="margin: 8px 0; padding: 10px; background: rgba(59, 130, 246, 0.1); border-radius: 6px;">
+                <strong>${area.name}</strong><br>
+                <small>${area.reason}</small>
+            </div>
+        `).join('');
+        
+        // Atualizar tags de tecnologia no match
+        updateMatchTechTags(matchInfo.techs);
+        
+        // Atualizar indicadores de status
+        updateMatchStatusIndicators();
+        
+        // Armazenar dados para aplicação
+        result.setAttribute('data-matched-areas', matchInfo.areaKeys.join(','));
+        result.setAttribute('data-matched-techs', matchInfo.techs.join(','));
+        
+        // Mostrar resultados
+        result.style.display = "block";
+        result.scrollIntoView({ behavior: 'smooth' });
+        
+        // Marcar progresso
+        if (!userProgress.match) {
+            userProgress.match = true;
+            document.getElementById('btn-match').classList.add('completed');
+            updateProgress();
+            saveToLocalStorage();
+        }
+    }
+
+    // Atualizar tags de tecnologia no match
+    function updateMatchTechTags(techs) {
+        const techTags = document.getElementById('match-tech-tags');
+        techTags.innerHTML = techs.map(tech => {
+            const isSelected = selectedTechnologies.has(tech);
+            return `<span class="tag ${isSelected ? 'selected' : ''}" 
+                         onclick="toggleTechnology('${tech}')">
+                         ${tech}
+                         <span class="tag-status">${isSelected ? 'No plano' : 'Adicionar'}</span>
+                    </span>`;
+        }).join('');
+    }
+
+    // Aplicar match ao plano
+    function applyMatchToPlan() {
+        const result = document.getElementById('match-result');
+        const areas = result.getAttribute('data-matched-areas').split(',');
+        const techs = result.getAttribute('data-matched-techs').split(',');
+        
+        // Adicionar áreas e tecnologias
+        areas.forEach(area => {
+            if (area && !selectedAreas.has(area)) {
+                selectedAreas.add(area);
+                addAreaTechnologies(area, areasData[area]?.technologies || []);
+            }
+        });
+        
+        techs.forEach(tech => {
+            if (tech && !selectedTechnologies.has(tech)) {
+                selectedTechnologies.add(tech);
+            }
+        });
+        
+        // Atualizar interface
+        updateAreaSelections();
+        updateMatchTechTags(techs);
+        updateAllStatusIndicators();
+        
+        // Feedback e navegação
+        showSyncNotification('added', 'recomendações do match');
+        showSection('canvas');
+        
+        // Disparar eventos
+        eventSystem.emit('areasChanged', { area: 'match', added: true });
+        eventSystem.emit('technologiesChanged', { source: 'match', areas: areas });
+    }
+
+    // Alternar seleção de projeto COM SINCRONIZAÇÃO EM CASCADA
+    function toggleProjectSelection(projectElement) {
+        const projectTitle = projectElement.getAttribute('data-title');
+        const projectTech = projectElement.getAttribute('data-tech');
+        const wasSelected = projectElement.classList.contains('selected');
+        
+        if (wasSelected) {
+            // REMOVER projeto
+            selectedProjects.delete(projectTitle);
+            projectElement.classList.remove('selected');
+            
+            // Remover tecnologias específicas deste projeto (apenas se não forem usadas por áreas ou outros projetos)
+            removeProjectTechnologies(projectTitle);
+            
+            showSyncNotification('removed', `projeto ${projectTitle}`);
+        } else {
+            // ADICIONAR projeto
+            selectedProjects.add(projectTitle);
+            projectElement.classList.add('selected');
+            
+            // Adicionar tecnologias deste projeto
+            addProjectTechnologies(projectTitle, projectTech.split(',').map(t => t.trim()));
+            
+            showSyncNotification('added', `projeto ${projectTitle}`);
+        }
+        
+        updateProjectTags();
+        drawCanvas();
+        
+        // Atualizar indicadores de status
+        updateProjectStatusIndicators();
+        
+        // Disparar eventos
+        eventSystem.emit('projectsChanged', { project: projectTitle, added: !wasSelected });
+        eventSystem.emit('technologiesChanged', { source: 'project', project: projectTitle });
+    }
+
+    // Adicionar tecnologias de um projeto
+    function addProjectTechnologies(projectKey, technologies) {
+        // Armazenar quais tecnologias pertencem a este projeto
+        projectTechnologiesMap.set(projectKey, technologies);
+        
+        // Adicionar cada tecnologia ao conjunto
+        technologies.forEach(tech => {
+            selectedTechnologies.add(tech);
+        });
+    }
+
+    // Remover tecnologias de um projeto de forma inteligente
+    function removeProjectTechnologies(projectKey) {
+        const technologiesToRemove = projectTechnologiesMap.get(projectKey) || [];
+        
+        technologiesToRemove.forEach(tech => {
+            // Verificar se esta tecnologia é usada por áreas selecionadas
+            let stillUsedByAreas = false;
+            for (let [areaKey, areaTechs] of areaTechnologiesMap) {
+                if (selectedAreas.has(areaKey)) {
+                    if (areaTechs.includes(tech)) {
+                        stillUsedByAreas = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Verificar se esta tecnologia é usada por outros projetos selecionados
+            let stillUsedByProjects = false;
+            for (let [otherProjectKey, otherTechs] of projectTechnologiesMap) {
+                if (otherProjectKey !== projectKey && selectedProjects.has(otherProjectKey)) {
+                    if (otherTechs.includes(tech)) {
+                        stillUsedByProjects = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Só remover se não for mais usada por nenhuma área selecionada E nenhum outro projeto selecionado
+            if (!stillUsedByAreas && !stillUsedByProjects) {
+                selectedTechnologies.delete(tech);
+            }
+        });
+        
+        // Remover do mapa
+        projectTechnologiesMap.delete(projectKey);
+    }
+
+    // Adicionar projeto customizado
+    function addCustomProject() {
+        const input = document.getElementById('new-project-input');
+        const project = input.value.trim();
+        if (project && !selectedProjects.has(project)) {
+            selectedProjects.add(project);
+            updateProjectTags();
+            drawCanvas();
+            input.value = '';
+            showSyncNotification('added', `projeto ${project}`);
+            
+            // Atualizar indicadores de status
+            updateProjectStatusIndicators();
+            
+            // Disparar eventos
+            eventSystem.emit('projectsChanged', { project: project, added: true });
+        }
+    }
+
+    // Atualizar tags de projetos
+    function updateProjectTags() {
+        const container = document.getElementById('project-tags-container');
+        container.innerHTML = '';
+        
+        if (selectedProjects.size === 0) {
+            container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 10px;">Nenhum projeto selecionado</div>';
+        } else {
+            selectedProjects.forEach(project => {
+                const tag = document.createElement('span');
+                tag.className = 'tag salary-tag selected';
+                tag.innerHTML = `${project} <span class="remove-tag" onclick="removeProject('${project}')">×</span>`;
+                container.appendChild(tag);
+            });
+        }
+    }
+
+    // Remover projeto
+    function removeProject(project) {
+        selectedProjects.delete(project);
+        
+        // Remover tecnologias específicas deste projeto
+        removeProjectTechnologies(project);
+        
+        updateProjectTags();
+        drawCanvas();
+        showSyncNotification('removed', `projeto ${project}`);
+        
+        // Atualizar indicadores de status
+        updateProjectStatusIndicators();
+        
+        // Disparar eventos
+        eventSystem.emit('projectsChanged', { project: project, added: false });
+        eventSystem.emit('technologiesChanged', { source: 'project', project: project });
+    }
+
+    // Atualizar seleções no canvas
+    function updateCanvasSelections() {
+        updateAreaSelections();
+        updateTechTags();
+        updateProjectTags();
+        drawCanvas();
+    }
+
+    // Atualizar canvas de carreira
+    function drawCanvas() {
+        document.getElementById('outName').innerText = document.getElementById('cName').value || "Seu Nome";
+        
+        // Áreas
+        const areasArray = Array.from(selectedAreas).map(key => areasData[key]?.title || key);
+        document.getElementById('outArea').innerText = areasArray.length > 0 ? 
+            areasArray.join(', ') : "Selecione áreas de interesse";
+        
+        // Tecnologias
+        const techArray = Array.from(selectedTechnologies);
+        document.getElementById('outTech').innerText = techArray.length > 0 ? 
+            techArray.join(', ') : "Selecione tecnologias de interesse";
+        
+        // Projetos
+        const projectsArray = Array.from(selectedProjects);
+        document.getElementById('outProject').innerText = projectsArray.length > 0 ? 
+            projectsArray.join(', ') : "Selecione projetos de portfólio";
+        
+        document.getElementById('outSalary').innerText = document.getElementById('cSalary').value;
+        document.getElementById('outHours').innerText = document.getElementById('cHours').value;
+        document.getElementById('outMotive').innerText = document.getElementById('cMotive').value || "A definir";
+        
+        // Marcar progresso
+        const name = document.getElementById('cName').value;
+        const tech = selectedTechnologies.size > 0;
+        const project = selectedProjects.size > 0;
+        const motive = document.getElementById('cMotive').value;
+        
+        if (name && tech && project && motive && !userProgress.canvas) {
+            userProgress.canvas = true;
+            document.getElementById('btn-canvas').classList.add('completed');
+            updateProgress();
+            saveToLocalStorage();
+        }
+    }
+
+    // Notificação de sincronização
+    function showSyncNotification(action, item) {
+        const messages = {
+            'added': `✅ ${item} adicionado ao seu plano`,
+            'removed': `❌ ${item} removido do seu plano`,
+            'synced': `🔄 Plano atualizado automaticamente`,
+            'reset': `🔄 Todos os dados foram resetados!`,
+            'loaded': `💾 Seu plano foi restaurado!`
+        };
+        
+        const notification = document.createElement('div');
+        notification.className = 'sync-notification';
+        notification.textContent = messages[action] || 'Plano atualizado';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideIn 0.3s ease reverse';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 2000);
+    }
+
+    // Inicialização
+    window.onload = function() {
+        // Carregar dados salvos primeiro
+        loadFromLocalStorage();
+        
+        // Depois inicializar a interface
+        renderCharts();
+        loadExplorer();
+        drawCanvas();
+        
+        // Configurar auto-save para inputs
+        document.getElementById('cName').addEventListener('input', () => {
+            setTimeout(saveToLocalStorage, 500);
+        });
+        document.getElementById('cMotive').addEventListener('input', () => {
+            setTimeout(saveToLocalStorage, 500);
+        });
+        
+        // Adicionar tutorial inicial
+        setTimeout(() => {
+            if (selectedAreas.size === 0) {
+                showSyncNotification('synced', 'Comece explorando as áreas de TI!');
+            }
+        }, 3000);
+    };
+</script>
+</body>
+</html>

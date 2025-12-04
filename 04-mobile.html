@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Desafio Mobile - O Mundo na Palma da Mão</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --success: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 30px;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: #2d3436;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: white;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .demo-area {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .phone-container {
+            perspective: 1000px;
+        }
+        
+        .phone {
+            width: 320px;
+            height: 640px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            border: 12px solid #2d3436;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .status-bar {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .app-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        
+        .tab-bar {
+            display: flex;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab-icon {
+            font-size: 1.2rem;
+        }
+        
+        .cart-badge {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 5px;
+            right: 20px;
+        }
+        
+        .screen-content {
+            display: none;
+        }
+        
+        .screen-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .food-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .food-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .pizza { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+        .sushi { background: linear-gradient(45deg, #a1c4fd, #c2e9fb); }
+        .burger { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+        .pasta { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+        .salad { background: linear-gradient(45deg, #d4fc79, #96e6a1); }
+        
+        .food-info {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .food-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .food-details {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .food-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .add-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .add-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .cart-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .cart-total {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .checkout-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .control-group h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .explanation {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+        
+        .explanation h3 {
+            margin-bottom: 15px;
+        }
+        
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Desafio Mobile</h1>
+        <p class="intro">Você é o <strong>Mestre dos Dispositivos Móveis</strong> que cria experiências incríveis para smartphones e tablets!</p>
+        
+        <div class="demo-area">
+            <div class="phone-container">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>iFood</span>
+                            <span>📶 100%</span>
+                        </div>
+                        
+                        <div class="app-content">
+                            <!-- Tela Inicial -->
+                            <div class="screen-content active" id="home-screen">
+                                <h3 style="margin-bottom: 20px;">🍔 Restaurantes Próximos</h3>
+                                
+                                <div class="food-card" data-food="pizza">
+                                    <div class="food-image pizza">🍕</div>
+                                    <div class="food-info">
+                                        <div class="food-name">Pizza Suprema</div>
+                                        <div class="food-details">⭐ 4.8 (2.1km) - 30min</div>
+                                        <div class="food-price">R$ 39,90</div>
+                                    </div>
+                                    <button class="add-btn" onclick="addToCart('pizza')">Adicionar</button>
+                                </div>
+                                
+                                <div class="food-card" data-food="sushi">
+                                    <div class="food-image sushi">🍣</div>
+                                    <div class="food-info">
+                                        <div class="food-name">Sushi Master</div>
+                                        <div class="food-details">⭐ 4.9 (1.5km) - 25min</div>
+                                        <div class="food-price">R$ 52,90</div>
+                                    </div>
+                                    <button class="add-btn" onclick="addToCart('sushi')">Adicionar</button>
+                                </div>
+                                
+                                <div class="food-card" data-food="burger">
+                                    <div class="food-image burger">🍔</div>
+                                    <div class="food-info">
+                                        <div class="food-name">Burger Kingdom</div>
+                                        <div class="food-details">⭐ 4.7 (0.8km) - 20min</div>
+                                        <div class="food-price">R$ 24,90</div>
+                                    </div>
+                                    <button class="add-btn" onclick="addToCart('burger')">Adicionar</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Tela de Busca -->
+                            <div class="screen-content" id="search-screen">
+                                <h3 style="margin-bottom: 20px;">🔍 Buscar Comida</h3>
+                                <input type="text" class="search-input" placeholder="Pizza, sushi, hambúrguer..." onkeyup="searchFood()">
+                                <div id="search-results">
+                                    <!-- Resultados da busca aparecem aqui -->
+                                </div>
+                            </div>
+                            
+                            <!-- Tela do Carrinho -->
+                            <div class="screen-content" id="cart-screen">
+                                <h3 style="margin-bottom: 20px;">🛒 Seu Carrinho</h3>
+                                <div id="cart-items">
+                                    <!-- Itens do carrinho aparecem aqui -->
+                                </div>
+                                <div id="empty-cart" class="no-results">
+                                    <div style="font-size: 3rem; margin-bottom: 15px;">🛒</div>
+                                    <p>Seu carrinho está vazio</p>
+                                    <p style="margin-top: 10px; color: #666;">Adicione itens na tela inicial!</p>
+                                </div>
+                                <div id="cart-total" style="display: none;">
+                                    <div class="cart-total">
+                                        <div>Total do pedido:</div>
+                                        <div class="total-price" id="total-price">R$ 0,00</div>
+                                        <button class="checkout-btn" onclick="checkout()">🎉 Finalizar Pedido</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tela de Perfil -->
+                            <div class="screen-content" id="profile-screen">
+                                <h3 style="margin-bottom: 20px;">👤 Seu Perfil</h3>
+                                <div style="background: white; padding: 20px; border-radius: 12px;">
+                                    <p><strong>Nome:</strong> João Silva</p>
+                                    <p><strong>Email:</strong> joao@email.com</p>
+                                    <p><strong>Pedidos:</strong> 47</p>
+                                    <p><strong>Membro desde:</strong> Jan 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-bar">
+                            <div class="tab active" onclick="switchTab('home')">
+                                <div class="tab-icon">🏠</div>
+                                <div>Início</div>
+                            </div>
+                            <div class="tab" onclick="switchTab('search')">
+                                <div class="tab-icon">🔍</div>
+                                <div>Buscar</div>
+                            </div>
+                            <div class="tab" onclick="switchTab('cart')">
+                                <div class="tab-icon">🛒</div>
+                                <div>Carrinho</div>
+                                <div class="cart-badge" id="cart-badge" style="display: none;">0</div>
+                            </div>
+                            <div class="tab" onclick="switchTab('profile')">
+                                <div class="tab-icon">👤</div>
+                                <div>Perfil</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">🎮 Como Usar o App</h2>
+                
+                <div class="control-group">
+                    <h3>🛒 Sistema de Carrinho</h3>
+                    <p><strong>Adicionar:</strong> Clique em "Adicionar" nos produtos</p>
+                    <p><strong>Remover:</strong> Use o ❌ nos itens do carrinho</p>
+                    <p><strong>Quantidade:</strong> Use + e - para ajustar</p>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🔍 Busca Inteligente</h3>
+                    <p>Digite na tela de busca para filtrar:</p>
+                    <ul>
+                        <li>"pizza" - Mostra apenas pizzas</li>
+                        <li>"sushi" - Mostra apenas sushis</li>
+                        <li>"burger" - Mostra hambúrgueres</li>
+                    </ul>
+                </div>
+                
+                <div class="control-group">
+                    <h3>📱 Navegação</h3>
+                    <p>Use as abas inferiores para navegar entre as telas do app.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>💡 O que é Desenvolvimento Mobile?</h3>
+            <p>Desenvolvimento Mobile é a criação de aplicativos para smartphones e tablets. Pode ser feito com tecnologias nativas (Swift para iOS, Kotlin para Android) ou híbridas (React Native, Flutter) que funcionam em ambas as plataformas!</p>
+            
+            <h3>🔧 Funcionalidades Implementadas:</h3>
+            <ul>
+                <li><strong>Sistema de Carrinho:</strong> Adicionar, remover e ajustar quantidades</li>
+                <li><strong>Busca em Tempo Real:</strong> Filtra produtos enquanto digita</li>
+                <li><strong>Badge Dinâmico:</strong> Mostra quantidade de itens no carrinho</li>
+                <li><strong>Cálculo de Total:</strong> Soma automática dos preços</li>
+            </ul>
+            
+            <div class="code-snippet">
+// JavaScript - Gerenciamento do Carrinho<br>
+let cart = [];<br><br>
+
+function addToCart(foodType) {<br>
+&nbsp;&nbsp;const existingItem = cart.find(item => item.type === foodType);<br>
+&nbsp;&nbsp;if (existingItem) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;existingItem.quantity++;<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cart.push({ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: foodType, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity: 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...foods[foodType] <br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;updateCartUI();<br>
+&nbsp;&nbsp;showFeedback('✅ Item adicionado!');<br>
+}
+            </div>
+            
+            <p><strong>Dica:</strong> Experimente adicionar vários itens ao carrinho, usar a busca e testar todas as funcionalidades! Isso simula um app de delivery real.</p>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos produtos
+        const foods = {
+            pizza: {
+                name: "Pizza Suprema",
+                emoji: "🍕",
+                price: 39.90,
+                class: "pizza",
+                details: "⭐ 4.8 (2.1km) - 30min"
+            },
+            sushi: {
+                name: "Sushi Master", 
+                emoji: "🍣",
+                price: 52.90,
+                class: "sushi",
+                details: "⭐ 4.9 (1.5km) - 25min"
+            },
+            burger: {
+                name: "Burger Kingdom",
+                emoji: "🍔", 
+                price: 24.90,
+                class: "burger",
+                details: "⭐ 4.7 (0.8km) - 20min"
+            }
+        };
+
+        let cart = [];
+
+        // Navegação entre telas
+        function switchTab(tabName) {
+            document.querySelectorAll('.screen-content').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName + '-screen').classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            // Atualiza a tela do carrinho se for selecionada
+            if (tabName === 'cart') {
+                updateCartUI();
+            }
+        }
+
+        // Sistema de busca
+        function searchFood() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (!searchTerm) {
+                resultsContainer.innerHTML = '<div class="no-results">Digite acima para buscar comidas...</div>';
+                return;
+            }
+            
+            const filteredFoods = Object.entries(foods).filter(([key, food]) => 
+                food.name.toLowerCase().includes(searchTerm) || 
+                key.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filteredFoods.length === 0) {
+                resultsContainer.innerHTML = '<div class="no-results">Nenhum resultado encontrado para "' + searchTerm + '"</div>';
+                return;
+            }
+            
+            resultsContainer.innerHTML = filteredFoods.map(([key, food]) => `
+                <div class="food-card" data-food="${key}">
+                    <div class="food-image ${food.class}">${food.emoji}</div>
+                    <div class="food-info">
+                        <div class="food-name">${food.name}</div>
+                        <div class="food-details">${food.details}</div>
+                        <div class="food-price">R$ ${food.price.toFixed(2)}</div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart('${key}')">Adicionar</button>
+                </div>
+            `).join('');
+        }
+
+        // Sistema de carrinho
+        function addToCart(foodType) {
+            const existingItem = cart.find(item => item.type === foodType);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    type: foodType,
+                    quantity: 1,
+                    ...foods[foodType]
+                });
+            }
+            
+            updateCartUI();
+            showFeedback('✅ ' + foods[foodType].name + ' adicionado!');
+        }
+
+        function removeFromCart(foodType) {
+            cart = cart.filter(item => item.type !== foodType);
+            updateCartUI();
+            showFeedback('🗑️ Item removido!');
+        }
+
+        function updateQuantity(foodType, change) {
+            const item = cart.find(item => item.type === foodType);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(foodType);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cart-items');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartTotal = document.getElementById('cart-total');
+            const cartBadge = document.getElementById('cart-badge');
+            const totalPrice = document.getElementById('total-price');
+            
+            // Atualizar badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                cartBadge.style.display = 'flex';
+                cartBadge.textContent = totalItems;
+            } else {
+                cartBadge.style.display = 'none';
+            }
+            
+            // Atualizar lista de itens
+            if (cart.length === 0) {
+                cartItems.innerHTML = '';
+                emptyCart.style.display = 'block';
+                cartTotal.style.display = 'none';
+            } else {
+                emptyCart.style.display = 'none';
+                cartTotal.style.display = 'block';
+                
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="food-image ${item.class}">${item.emoji}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">R$ ${item.price.toFixed(2)}</div>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.type}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity('${item.type}', 1)">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart('${item.type}')">❌</button>
+                    </div>
+                `).join('');
+                
+                // Calcular total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                totalPrice.textContent = 'R$ ' + total.toFixed(2);
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            alert(`🎉 Pedido finalizado!\n\n📦 ${itemCount} itens\n💰 Total: R$ ${total.toFixed(2)}\n\nSeu pedido chegará em 30 minutos!`);
+            
+            // Limpar carrinho
+            cart = [];
+            updateCartUI();
+            switchTab('home');
+        }
+
+        function showFeedback(message) {
+            // Criar elemento de feedback
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                z-index: 1000;
+                font-weight: bold;
+            `;
+            feedback.textContent = message;
+            document.body.appendChild(feedback);
+            
+            // Remover após 2 segundos
+            setTimeout(() => {
+                document.body.removeChild(feedback);
+            }, 2000);
+        }
+
+        // Inicializar busca
+        document.addEventListener('DOMContentLoaded', function() {
+            searchFood();
+        });
+    </script>
+</body>
+</html>

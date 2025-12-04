@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 Desafio Front-end - O Artista Digital</title>
+  <style>
+    :root {
+      --primary-color: #6a11cb;
+      --secondary-color: #2575fc;
+      --light-bg: #f8f9fa;
+      --dark-bg: #121212;
+      --light-text: #333;
+      --dark-text: #f8f9fa;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 30px;
+      background: var(--light-bg);
+      color: var(--light-text);
+      min-height: 100vh;
+    }
+    
+    body.dark-mode {
+      background: var(--dark-bg);
+      color: var(--dark-text);
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    header {
+      margin-bottom: 30px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .intro {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .card {
+      background: var(--card-light);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      border: 2px solid #e0e0e0;
+    }
+    
+    .dark-mode .card {
+      background: var(--card-dark);
+      border-color: #333;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    .product-image {
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      border-radius: 10px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    
+    .dark-mode .product-image {
+      background: linear-gradient(45deg, #434343, #000000);
+    }
+    
+    .product-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    .dark-mode .product-title {
+      color: #bb86fc;
+    }
+    
+    .product-description {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .dark-btn {
+      background: #333;
+      color: white;
+    }
+    
+    .light-btn {
+      background: #f0f0f0;
+      color: #333;
+    }
+    
+    .change-title-btn {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .change-color-btn {
+      background: var(--secondary-color);
+      color: white;
+    }
+    
+    .explanation {
+      background: rgba(106, 17, 203, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: left;
+    }
+    
+    .dark-mode .explanation {
+      background: rgba(187, 134, 252, 0.1);
+    }
+    
+    .explanation h3 {
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    .dark-mode .explanation h3 {
+      color: #bb86fc;
+    }
+    
+    .code-snippet {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      text-align: left;
+      overflow-x: auto;
+    }
+    
+    .highlight {
+      color: #ff79c6;
+    }
+    
+    .property {
+      color: #50fa7b;
+    }
+    
+    .value {
+      color: #8be9fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎨 Desafio Front-end</h1>
+      <p class="intro">Você é o <strong>Artista Digital</strong> que cria a experiência visual que os usuários veem e interagem. Aqui você pode experimentar como é mudar a aparência de uma página web!</p>
+    </header>
+    
+    <div class="card" id="product-card">
+      <div class="product-image">👟</div>
+      <h2 class="product-title" id="product-title">Tênis Super Run</h2>
+      <p class="product-description" id="product-description">O tênis mais confortável para suas corridas diárias. Tecnologia de amortecimento avançada.</p>
+      
+      <div class="controls">
+        <button class="dark-btn" onclick="changeTheme('dark')">🌙 Modo Escuro</button>
+        <button class="light-btn" onclick="changeTheme('light')">☀️ Modo Claro</button>
+        <button class="change-title-btn" onclick="changeProductTitle()">🔄 Mudar Produto</button>
+        <button class="change-color-btn" onclick="changeProductColor()">🎨 Mudar Cor</button>
+      </div>
+    </div>
+    
+    <div class="explanation">
+      <h3>💡 O que é Front-end?</h3>
+      <p>Front-end é tudo o que o usuário vê e interage em um site ou aplicativo. É como a vitrine de uma loja - precisa ser bonita, funcional e fácil de usar!</p>
+      
+      <h3>🔧 O que você está fazendo aqui:</h3>
+      <ul>
+        <li>Alterando o tema da página (claro/escuro)</li>
+        <li>Modificando elementos de texto</li>
+        <li>Mudando cores e estilos visualmente</li>
+      </ul>
+      
+      <h3>👨‍💻 Exemplo de Código (CSS):</h3>
+      <div class="code-snippet">
+        <span class="highlight">body</span> {<br>
+        &nbsp;&nbsp;<span class="property">background</span>: <span class="value">#f8f9fa</span>;<br>
+        &nbsp;&nbsp;<span class="property">color</span>: <span class="value">#333</span>;<br>
+        &nbsp;&nbsp;<span class="property">transition</span>: <span class="value">all 0.3s ease</span>;<br>
+        }<br><br>
+        
+        <span class="highlight">body.dark-mode</span> {<br>
+        &nbsp;&nbsp;<span class="property">background</span>: <span class="value">#121212</span>;<br>
+        &nbsp;&nbsp;<span class="property">color</span>: <span class="value">#f8f9fa</span>;<br>
+        }
+      </div>
+      
+      <p><strong>Dica:</strong> Experimente todos os botões para ver como pequenas mudanças no código transformam completamente a experiência do usuário!</p>
+    </div>
+  </div>
+
+  <script>
+    // Array de produtos para alternar
+    const products = [
+      { name: "Tênis Super Run", description: "O tênis mais confortável para suas corridas diárias. Tecnologia de amortecimento avançada.", emoji: "👟" },
+      { name: "Mochila Adventure", description: "Leve, resistente e com compartimentos inteligentes para suas aventuras.", emoji: "🎒" },
+      { name: "Fone Quantum", description: "Som de alta qualidade com cancelamento de ruído ativo.", emoji: "🎧" },
+      { name: "SmartWatch Pro", description: "Monitoramento de saúde 24/7 com bateria de longa duração.", emoji: "⌚" }
+    ];
+    
+    // Array de cores para o produto
+    const colors = [
+      { bg: "linear-gradient(45deg, #ff9a9e, #fad0c4)", emoji: "👟" },
+      { bg: "linear-gradient(45deg, #a1c4fd, #c2e9fb)", emoji: "👟" },
+      { bg: "linear-gradient(45deg, #ffecd2, #fcb69f)", emoji: "👟" },
+      { bg: "linear-gradient(45deg, #84fab0, #8fd3f4)", emoji: "👟" }
+    ];
+    
+    let currentProductIndex = 0;
+    let currentColorIndex = 0;
+    
+    // Função para mudar o tema (claro/escuro)
+    function changeTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    }
+    
+    // Função para mudar o título e descrição do produto
+    function changeProductTitle() {
+      currentProductIndex = (currentProductIndex + 1) % products.length;
+      const product = products[currentProductIndex];
+      
+      document.getElementById('product-title').textContent = product.name;
+      document.getElementById('product-description').textContent = product.description;
+      document.querySelector('.product-image').textContent = product.emoji;
+    }
+    
+    // Função para mudar a cor do produto
+    function changeProductColor() {
+      currentColorIndex = (currentColorIndex + 1) % colors.length;
+      const color = colors[currentColorIndex];
+      
+      document.querySelector('.product-image').style.background = color.bg;
+      document.querySelector('.product-image').textContent = color.emoji;
+    }
+  </script>
+</body>
+</html>

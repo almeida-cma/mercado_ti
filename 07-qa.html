@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐞 QA / Testes - O Caçador de Bugs</title>
+    <style>
+        :root {
+            --primary: #7209b7;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --dark: #2d3436;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .mission {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+        }
+        
+        .app-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            color: var(--dark);
+        }
+        
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .calculator-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .inputs {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        input {
+            width: 100px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .operator {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .equals {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .calculate-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(114, 9, 183, 0.4);
+        }
+        
+        .result {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border: 3px solid;
+        }
+        
+        .result-correct {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .result-wrong {
+            border-color: var(--danger);
+            color: var(--danger);
+            animation: pulse 0.5s;
+        }
+        
+        .test-cases {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            color: var(--dark);
+        }
+        
+        .test-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            padding: 12px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            background: white;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .test-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .bug-report {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            color: #856404;
+        }
+        
+        .report-title {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .investigation {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .clues {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .clue {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        .clue-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .solution {
+            background: rgba(239, 71, 111, 0.1);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .solution-title {
+            color: var(--danger);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .code-snippet {
+            background: #2d2d2d;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .explanation {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .bug-found {
+            background: rgba(239, 71, 111, 0.2);
+            border: 2px solid var(--danger);
+        }
+        
+        .test-passed {
+            background: rgba(6, 214, 160, 0.2);
+            border: 2px solid var(--success);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐞 Desafio QA / Testes</h1>
+        <p class="intro">Você é o <strong>Detetive de Software</strong> que encontra bugs antes que eles cheguem aos usuários!</p>
+        
+        <div class="mission">
+            <h3>🎯 Sua Missão:</h3>
+            <p>Encontre o bug nesta calculadora que está causando resultados errados!</p>
+            <p>Use os casos de teste abaixo para investigar o problema.</p>
+        </div>
+
+        <div class="app-container">
+            <div class="calculator">
+                <div class="calculator-title">🧮 Calculadora com Bug</div>
+                
+                <div class="inputs">
+                    <input type="number" id="num1" value="10">
+                    <div class="operator">+</div>
+                    <input type="number" id="num2" value="10">
+                    <div class="equals">=</div>
+                    <div class="result" id="result">20</div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculate()">
+                    🔍 Calcular
+                </button>
+            </div>
+            
+            <div class="test-cases">
+                <div class="test-title">🧪 Casos de Teste</div>
+                <p style="text-align: center; margin-bottom: 15px; color: #666;">
+                    Teste estes valores para encontrar o padrão do bug:
+                </p>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="runTest(5, 5)">5 + 5</button>
+                    <button class="test-btn" onclick="runTest(10, 10)">10 + 10</button>
+                    <button class="test-btn" onclick="runTest(25, 25)">25 + 25</button>
+                    <button class="test-btn" onclick="runTest(100, 100)">100 + 100</button>
+                    <button class="test-btn" onclick="runTest(7, 3)">7 + 3</button>
+                    <button class="test-btn" onclick="runTest(15, 25)">15 + 25</button>
+                </div>
+                
+                <div class="bug-report" id="bugReport" style="display: none;">
+                    <div class="report-title">
+                        <span>📝 Relatório do Bug</span>
+                    </div>
+                    <div id="reportContent"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="investigation">
+            <h3 style="color: var(--primary); text-align: center; margin-bottom: 20px;">🔍 Sua Investigação</h3>
+            
+            <div class="clues">
+                <div class="clue">
+                    <div class="clue-title">🎯 Comportamento Esperado</div>
+                    <div>5 + 5 = 10</div>
+                    <div>10 + 10 = 20</div>
+                    <div>100 + 100 = 200</div>
+                </div>
+                
+                <div class="clue">
+                    <div class="clue-title">🐞 Comportamento Atual</div>
+                    <div id="currentBehavior">Teste para ver...</div>
+                </div>
+                
+                <div class="clue">
+                    <div class="clue-title">💡 Dica Importante</div>
+                    <div>O que acontece quando você soma números com dois dígitos?</div>
+                </div>
+            </div>
+            
+            <div class="solution" id="solution" style="display: none;">
+                <div class="solution-title">
+                    <span>✅ Solução Encontrada!</span>
+                </div>
+                <div id="solutionContent"></div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>💡 O que é QA / Testes?</h3>
+            <p>QA (Quality Assurance) é a área que garante a qualidade do software. Testadores são como detetives que procuram bugs e problemas antes que os usuários finais os encontrem!</p>
+            
+            <h3>🔧 O que você está fazendo aqui:</h3>
+            <ul>
+                <li><strong>Executando casos de teste</strong> para reproduzir o bug</li>
+                <li><strong>Analisando padrões</strong> no comportamento errado</li>
+                <li><strong>Identificando a causa raiz</strong> do problema</li>
+                <li><strong>Documentando o bug</strong> para os desenvolvedores</li>
+            </ul>
+            
+            <div class="code-snippet">
+// Código com BUG - Descobriu o problema?<br>
+function calcularSoma(a, b) {<br>
+&nbsp;&nbsp;// O BUG ESTÁ AQUI!<br>
+&nbsp;&nbsp;return a + b; // Isso deveria funcionar, mas...<br>
+}<br><br>
+
+// Código CORRIGIDO<br>
+function calcularSomaCorreta(a, b) {<br>
+&nbsp;&nbsp;return Number(a) + Number(b); // Convertendo para número!<br>
+}
+            </div>
+            
+            <p><strong>Dica:</strong> Teste a calculadora com diferentes valores. O que acontece quando você digita "10" e "10"? E quando digita "5" e "5"? O padrão revela o bug! 🕵️‍♂️</p>
+        </div>
+    </div>
+
+    <script>
+        let testsRun = 0;
+        let bugFound = false;
+        const testHistory = [];
+
+        // Função com BUG - proposital!
+        function calculate() {
+            const num1 = document.getElementById('num1').value;
+            const num2 = document.getElementById('num2').value;
+            
+            // BUG INTENCIONAL: JavaScript está concatenando strings!
+            const result = num1 + num2;
+            
+            displayResult(result, false);
+            addToTestHistory(num1, num2, result);
+        }
+
+        function runTest(num1, num2) {
+            document.getElementById('num1').value = num1;
+            document.getElementById('num2').value = num2;
+            calculate();
+            testsRun++;
+            
+            // Verificar se o usuário descobriu o bug
+            if (!bugFound && testsRun >= 3) {
+                showHint();
+            }
+        }
+
+        function displayResult(result, isCorrect) {
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = result;
+            resultElement.className = `result ${isCorrect ? 'result-correct' : 'result-wrong'}`;
+        }
+
+        function addToTestHistory(num1, num2, result) {
+            const expected = Number(num1) + Number(num2);
+            const actual = result;
+            const status = expected === Number(actual) ? '✅' : '❌';
+            
+            testHistory.push({ num1, num2, expected, actual, status });
+            updateBehaviorDisplay();
+            
+            // Mostrar relatório do bug após alguns testes
+            if (testHistory.length >= 2 && !bugFound) {
+                showBugReport();
+            }
+        }
+
+        function updateBehaviorDisplay() {
+            const behaviorElement = document.getElementById('currentBehavior');
+            const recentTests = testHistory.slice(-3);
+            
+            behaviorElement.innerHTML = recentTests.map(test => 
+                `${test.num1} + ${test.num2} = ${test.actual} ${test.status}`
+            ).join('<br>');
+        }
+
+        function showBugReport() {
+            const bugReport = document.getElementById('bugReport');
+            const reportContent = document.getElementById('reportContent');
+            
+            // Encontrar testes que falharam
+            const failedTests = testHistory.filter(test => test.status === '❌');
+            
+            if (failedTests.length > 0) {
+                bugReport.style.display = 'block';
+                bugReport.classList.add('bug-found');
+                
+                reportContent.innerHTML = `
+                    <p><strong>Problema identificado:</strong> A calculadora está concatenando strings em vez de somar números!</p>
+                    <p><strong>Exemplo:</strong> "10" + "10" = "1010" (em vez de 20)</p>
+                    <p><strong>Padrão:</strong> Ocorre com números de dois ou mais dígitos</p>
+                    <button onclick="showSolution()" style="margin-top: 10px; padding: 10px 15px; background: var(--danger); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        🎯 Ver Solução
+                    </button>
+                `;
+                
+                bugFound = true;
+                showAlert('🐞 Bug encontrado! A calculadora tem um problema sério!');
+            }
+        }
+
+        function showHint() {
+            if (!bugFound) {
+                showAlert('💡 Dica: Teste com números de um dígito vs dois dígitos!');
+            }
+        }
+
+        function showSolution() {
+            const solution = document.getElementById('solution');
+            const solutionContent = document.getElementById('solutionContent');
+            
+            solution.style.display = 'block';
+            solution.classList.add('test-passed');
+            
+            solutionContent.innerHTML = `
+                <p><strong>🔍 O Bug:</strong> A calculadora está tratando os inputs como texto (strings) em vez de números!</p>
+                <p><strong>📝 Por que acontece:</strong> Em JavaScript, o sinal "+" concatena strings e soma números.</p>
+                <p><strong>🛠️ Como corrigir:</strong> Converter os valores para números antes de somar:</p>
+                <div class="code-snippet">
+// CÓDIGO COM BUG:<br>
+function calcularErrado(a, b) {<br>
+&nbsp;&nbsp;return a + b; // "10" + "10" = "1010"<br>
+}<br><br>
+
+// CÓDIGO CORRIGIDO:<br>
+function calcularCerto(a, b) {<br>
+&nbsp;&nbsp;return Number(a) + Number(b); // 10 + 10 = 20<br>
+}
+                </div>
+                <button onclick="fixCalculator()" style="margin-top: 15px; padding: 12px 20px; background: var(--success); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                    🔧 Aplicar Correção
+                </button>
+            `;
+            
+            showAlert('✅ Solução revelada! Agora você entende o bug!');
+        }
+
+        function fixCalculator() {
+            // Substituir a função com bug pela corrigida
+            window.calculate = function() {
+                const num1 = document.getElementById('num1').value;
+                const num2 = document.getElementById('num2').value;
+                
+                // CÓDIGO CORRIGIDO!
+                const result = Number(num1) + Number(num2);
+                
+                displayResult(result, true);
+                addToTestHistory(num1, num2, result);
+            }
+            
+            // Testar automaticamente com valores conhecidos
+            runTest(10, 10);
+            showAlert('🎉 Calculadora corrigida! Agora funciona perfeitamente!');
+        }
+
+        function showAlert(message) {
+            // Remover alerta anterior se existir
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            alert.textContent = message;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 4000);
+        }
+
+        // Inicializar com um teste
+        setTimeout(() => {
+            runTest(10, 10);
+            showAlert('🔍 Comece testando a calculadora! Tente 10 + 10 e veja o que acontece...');
+        }, 1000);
+    </script>
+</body>
+</html>

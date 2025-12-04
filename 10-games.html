@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Games - O Criador de Mundos</title>
+    <style>
+        :root {
+            --primary: #7209b7;
+            --secondary: #3a0ca3;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --game: #4361ee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: var(--game);
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .mission {
+            background: rgba(67, 97, 238, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid var(--game);
+        }
+        
+        .game-lab {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .game-section, .code-section {
+            background: rgba(27, 38, 59, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid var(--game);
+        }
+        
+        .section-title {
+            color: var(--game);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        .game-container {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        #gameCanvas {
+            border: 3px solid var(--game);
+            border-radius: 10px;
+            background: #0d1b2a;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(67, 97, 238, 0.3);
+            cursor: none;
+        }
+        
+        .game-ui {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .ui-card {
+            background: #1b263b;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #415a77;
+        }
+        
+        .ui-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 5px 0;
+            color: var(--success);
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .control-btn {
+            background: var(--game);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .control-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .control-btn:active {
+            transform: translateY(0);
+        }
+        
+        .keyboard-hint {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid var(--game);
+        }
+        
+        .keys {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .key {
+            background: #1b263b;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 2px solid var(--game);
+            font-weight: bold;
+        }
+        
+        .code-editor {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--success);
+            height: 200px;
+            overflow-y: auto;
+            border: 2px solid #415a77;
+        }
+        
+        .code-line {
+            margin-bottom: 8px;
+            padding-left: 10px;
+            border-left: 2px solid transparent;
+        }
+        
+        .code-line.active {
+            border-left-color: var(--game);
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .code-comment {
+            color: #6272a4;
+        }
+        
+        .code-keyword {
+            color: #ff79c6;
+        }
+        
+        .code-function {
+            color: #50fa7b;
+        }
+        
+        .game-elements {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .element-card {
+            background: #1b263b;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid;
+            cursor: pointer;
+        }
+        
+        .element-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .player-element {
+            border-color: var(--success);
+        }
+        
+        .enemy-element {
+            border-color: var(--danger);
+        }
+        
+        .coin-element {
+            border-color: var(--warning);
+        }
+        
+        .element-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .concept-card {
+            background: rgba(67, 97, 238, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--game);
+        }
+        
+        .concept-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--game);
+        }
+        
+        .physics-demo {
+            background: #1b263b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .ball {
+            width: 50px;
+            height: 50px;
+            background: var(--danger);
+            border-radius: 50%;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        
+        .bouncing {
+            animation: bounce 1s infinite alternate;
+        }
+        
+        .explanation {
+            background: rgba(27, 38, 59, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid var(--game);
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+            border: 2px solid var(--game);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid var(--danger);
+            display: none;
+        }
+        
+        .restart-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--warning);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .focus-message {
+            color: var(--warning);
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Desenvolvimento de Games</h1>
+        <p class="intro">Você é o <strong>Criador de Mundos</strong> que dá vida a universos digitais através de código e criatividade!</p>
+        
+        <div class="mission">
+            <h3>🎯 Sua Missão:</h3>
+            <p>Controle o jogador azul, colete moedas amarelas e evite os inimigos vermelhos!</p>
+            <p>Use as setas do teclado ou os botões de controle.</p>
+        </div>
+
+        <div class="game-lab">
+            <div class="game-section">
+                <div class="section-title">🎮 Seu Primeiro Jogo</div>
+                
+                <div class="game-container">
+                    <canvas id="gameCanvas" width="400" height="400"></canvas>
+                    <div class="game-over" id="gameOver">
+                        <h3>💀 Game Over!</h3>
+                        <p>Pontuação: <span id="finalScore">0</span></p>
+                        <button class="restart-btn" onclick="restartGame()">🔄 Jogar Novamente</button>
+                    </div>
+                </div>
+                
+                <div class="keyboard-hint">
+                    <div>🎮 Controles do Teclado:</div>
+                    <div class="keys">
+                        <div class="key">⬆️</div>
+                        <div class="key">⬅️</div>
+                        <div class="key">⬇️</div>
+                        <div class="key">➡️</div>
+                    </div>
+                    <div class="focus-message">💡 Clique no jogo antes de usar o teclado</div>
+                </div>
+                
+                <div class="game-ui">
+                    <div class="ui-card">
+                        <div>Pontuação</div>
+                        <div class="ui-value" id="score">0</div>
+                    </div>
+                    <div class="ui-card">
+                        <div>Vidas</div>
+                        <div class="ui-value" id="lives">3</div>
+                    </div>
+                    <div class="ui-card">
+                        <div>Moedas</div>
+                        <div class="ui-value" id="coins">0/5</div>
+                    </div>
+                    <div class="ui-card">
+                        <div>Nível</div>
+                        <div class="ui-value" id="level">1</div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" onclick="movePlayer('left')">⬅️ Esquerda</button>
+                    <button class="control-btn" onclick="movePlayer('up')">⬆️ Cima</button>
+                    <button class="control-btn" onclick="movePlayer('right')">➡️ Direita</button>
+                    <button class="control-btn" onclick="movePlayer('down')">⬇️ Baixo</button>
+                    <button class="control-btn" onclick="addCoin()">🪙 Add Moeda</button>
+                    <button class="control-btn" onclick="addEnemy()">👾 Add Inimigo</button>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <div class="section-title">💻 Engine do Jogo</div>
+                
+                <div class="code-editor" id="codeEditor">
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-function">Game</span> {</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-function">constructor</span>() {</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.player = { x: 200, y: 200 };</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.coins = [];</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.enemies = [];</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.score = 0;</div>
+                    <div class="code-line">&nbsp;&nbsp;}</div>
+                    <div class="code-line">&nbsp;&nbsp;</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-function">update</span>() {</div>
+                    <div class="code-line active">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Game Loop - 60 frames por segundo</span></div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.<span class="code-function">moveEnemies</span>();</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.<span class="code-function">checkCollisions</span>();</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.<span class="code-function">render</span>();</div>
+                    <div class="code-line">&nbsp;&nbsp;}</div>
+                    <div class="code-line">}</div>
+                </div>
+                
+                <div class="game-elements">
+                    <div class="element-card player-element" onclick="explainElement('player')">
+                        <div class="element-icon">🟦</div>
+                        <div>Jogador</div>
+                        <div style="font-size: 0.8rem; color: #adb5bd;">Você controla</div>
+                    </div>
+                    <div class="element-card coin-element" onclick="explainElement('coin')">
+                        <div class="element-icon">🟨</div>
+                        <div>Moedas</div>
+                        <div style="font-size: 0.8rem; color: #adb5bd;">+10 pontos</div>
+                    </div>
+                    <div class="element-card enemy-element" onclick="explainElement('enemy')">
+                        <div class="element-icon">🟥</div>
+                        <div>Inimigos</div>
+                        <div style="font-size: 0.8rem; color: #adb5bd;">-1 vida</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="physics-demo">
+            <h3 style="color: var(--game); margin-bottom: 15px;">⚡ Demonstração de Física</h3>
+            <p>Clique na bola para ver efeitos físicos:</p>
+            <div class="ball" id="physicsBall" onclick="createParticles(this)"></div>
+            <p style="color: #adb5bd; font-size: 0.9rem;">Gravidade, Colisão, Partículas</p>
+        </div>
+        
+        <div class="game-concepts">
+            <div class="concept-card">
+                <div class="concept-icon">🔄</div>
+                <div><strong>Game Loop</strong></div>
+                <div style="font-size: 0.9rem; color: #adb5bd; margin-top: 8px;">
+                    Atualiza o jogo 60 vezes por segundo
+                </div>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">💥</div>
+                <div><strong>Detecção de Colisão</strong></div>
+                <div style="font-size: 0.9rem; color: #adb5bd; margin-top: 8px;">
+                    Verifica quando objetos se tocam
+                </div>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">🎮</div>
+                <div><strong>Input do Usuário</strong></div>
+                <div style="font-size: 0.9rem; color: #adb5bd; margin-top: 8px;">
+                    Teclado, mouse, controles
+                </div>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">🎯</div>
+                <div><strong>IA dos Inimigos</strong></div>
+                <div style="font-size: 0.9rem; color: #adb5bd; margin-top: 8px;">
+                    Comportamento automático
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>💡 O que é Desenvolvimento de Games?</h3>
+            <p>Desenvolvimento de games é a arte de criar jogos digitais combinando programação, arte, design e storytelling. É como ser um deus criando universos inteiros do zero!</p>
+            
+            <h3>🔧 O que você está fazendo aqui:</h3>
+            <ul>
+                <li><strong>Controlando um personagem</strong> em tempo real</li>
+                <li><strong>Implementando mecânicas de jogo</strong> como coleta e combate</li>
+                <li><strong>Entendendo o game loop</strong> e atualização de frames</li>
+                <li><strong>Experimentando com física</strong> e efeitos visuais</li>
+                <li><strong>Customizando o jogo</strong> adicionando elementos</li>
+            </ul>
+            
+            <div style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--game);">
+                <strong>🎮 Curiosidade:</strong> O jogo mais vendido da história é Minecraft, com mais de 238 milhões de cópias! 
+                Mostra que mesmo games com gráficos simples podem fazer sucesso com boas mecânicas.
+            </div>
+            
+            <p><strong>Dica:</strong> Tente coletar todas as 5 moedas sem ser atingido pelos inimigos! Use os botões para adicionar mais desafios.</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do jogo
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let game = {
+            player: { x: 200, y: 200, size: 30, color: '#4361ee', speed: 8 },
+            coins: [],
+            enemies: [],
+            score: 0,
+            lives: 3,
+            coinsCollected: 0,
+            level: 1,
+            gameOver: false,
+            keys: {} // Para controle de teclas pressionadas
+        };
+
+        // Inicializar o jogo
+        initGame();
+
+        function initGame() {
+            // Adicionar moedas iniciais
+            for (let i = 0; i < 5; i++) {
+                addCoin(true);
+            }
+            
+            // Adicionar inimigos iniciais
+            for (let i = 0; i < 3; i++) {
+                addEnemy(true);
+            }
+            
+            // Iniciar game loop
+            gameLoop();
+        }
+
+        function gameLoop() {
+            if (game.gameOver) return;
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Mover player baseado nas teclas pressionadas
+            handleContinuousMovement();
+            
+            // Atualizar inimigos
+            updateEnemies();
+            
+            // Verificar colisões
+            checkCollisions();
+            
+            // Renderizar tudo
+            render();
+            
+            // Próximo frame
+            requestAnimationFrame(gameLoop);
+        }
+
+        function handleContinuousMovement() {
+            if (game.keys['ArrowLeft']) {
+                game.player.x = Math.max(game.player.size / 2, game.player.x - game.player.speed);
+            }
+            if (game.keys['ArrowRight']) {
+                game.player.x = Math.min(canvas.width - game.player.size / 2, game.player.x + game.player.speed);
+            }
+            if (game.keys['ArrowUp']) {
+                game.player.y = Math.max(game.player.size / 2, game.player.y - game.player.speed);
+            }
+            if (game.keys['ArrowDown']) {
+                game.player.y = Math.min(canvas.height - game.player.size / 2, game.player.y + game.player.speed);
+            }
+        }
+
+        function updateEnemies() {
+            game.enemies.forEach(enemy => {
+                // Movimento simples em direção ao player
+                const dx = game.player.x - enemy.x;
+                const dy = game.player.y - enemy.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 0) {
+                    enemy.x += (dx / distance) * enemy.speed;
+                    enemy.y += (dy / distance) * enemy.speed;
+                }
+            });
+        }
+
+        function checkCollisions() {
+            // Colisão com moedas
+            game.coins.forEach((coin, index) => {
+                const dx = game.player.x - coin.x;
+                const dy = game.player.y - coin.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < game.player.size / 2 + coin.size / 2) {
+                    // Coletar moeda
+                    game.coins.splice(index, 1);
+                    game.score += 10;
+                    game.coinsCollected++;
+                    updateUI();
+                    createParticlesAt(coin.x, coin.y, '#ffd166');
+                    showAlert('🪙 +10 pontos! Moeda coletada!');
+                    
+                    // Adicionar nova moeda se necessário
+                    if (game.coins.length < 5) {
+                        addCoin();
+                    }
+                    
+                    // Avançar de nível
+                    if (game.coinsCollected >= 5) {
+                        game.level++;
+                        game.coinsCollected = 0;
+                        addEnemy(); // Mais inimigos a cada nível
+                        showAlert(`🎉 Nível ${game.level}! Mais desafios chegando!`);
+                        updateUI();
+                    }
+                }
+            });
+            
+            // Colisão com inimigos
+            game.enemies.forEach((enemy, index) => {
+                const dx = game.player.x - enemy.x;
+                const dy = game.player.y - enemy.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < game.player.size / 2 + enemy.size / 2) {
+                    // Perder vida
+                    game.lives--;
+                    game.enemies.splice(index, 1);
+                    updateUI();
+                    createParticlesAt(enemy.x, enemy.y, '#ef476f');
+                    showAlert('💥 Ouch! -1 vida! Cuidado com os inimigos!');
+                    
+                    if (game.lives <= 0) {
+                        endGame();
+                    } else {
+                        // Adicionar novo inimigo
+                        setTimeout(() => addEnemy(), 1000);
+                    }
+                }
+            });
+        }
+
+        function render() {
+            // Desenhar player
+            ctx.fillStyle = game.player.color;
+            ctx.fillRect(
+                game.player.x - game.player.size / 2, 
+                game.player.y - game.player.size / 2, 
+                game.player.size, 
+                game.player.size
+            );
+            
+            // Desenhar moedas
+            game.coins.forEach(coin => {
+                ctx.fillStyle = coin.color;
+                ctx.beginPath();
+                ctx.arc(coin.x, coin.y, coin.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Efeito de brilho
+                ctx.strokeStyle = '#ffd166';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+            
+            // Desenhar inimigos
+            game.enemies.forEach(enemy => {
+                ctx.fillStyle = enemy.color;
+                ctx.beginPath();
+                ctx.arc(enemy.x, enemy.y, enemy.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Olhos do inimigo
+                ctx.fillStyle = 'white';
+                ctx.fillRect(enemy.x - 8, enemy.y - 3, 4, 4);
+                ctx.fillRect(enemy.x + 4, enemy.y - 3, 4, 4);
+            });
+        }
+
+        function movePlayer(direction) {
+            if (game.gameOver) return;
+            
+            switch(direction) {
+                case 'left':
+                    game.player.x = Math.max(game.player.size / 2, game.player.x - game.player.speed);
+                    break;
+                case 'right':
+                    game.player.x = Math.min(canvas.width - game.player.size / 2, game.player.x + game.player.speed);
+                    break;
+                case 'up':
+                    game.player.y = Math.max(game.player.size / 2, game.player.y - game.player.speed);
+                    break;
+                case 'down':
+                    game.player.y = Math.min(canvas.height - game.player.size / 2, game.player.y + game.player.speed);
+                    break;
+            }
+        }
+
+        function addCoin(initial = false) {
+            const coin = {
+                x: Math.random() * (canvas.width - 40) + 20,
+                y: Math.random() * (canvas.height - 40) + 20,
+                size: 20,
+                color: '#ffd166'
+            };
+            game.coins.push(coin);
+            
+            if (!initial) {
+                showAlert('🪙 Nova moeda adicionada!');
+            }
+            
+            updateUI();
+        }
+
+        function addEnemy(initial = false) {
+            // Posicionar inimigo longe do player
+            let x, y;
+            do {
+                x = Math.random() * (canvas.width - 40) + 20;
+                y = Math.random() * (canvas.height - 40) + 20;
+            } while (Math.abs(x - game.player.x) < 100 && Math.abs(y - game.player.y) < 100);
+            
+            const enemy = {
+                x: x,
+                y: y,
+                size: 25,
+                color: '#ef476f',
+                speed: 1 + (game.level * 0.5) // Inimigos mais rápidos a cada nível
+            };
+            game.enemies.push(enemy);
+            
+            if (!initial) {
+                showAlert('👾 Novo inimigo apareceu! Cuidado!');
+            }
+            
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = game.score;
+            document.getElementById('lives').textContent = game.lives;
+            document.getElementById('coins').textContent = `${game.coinsCollected}/5`;
+            document.getElementById('level').textContent = game.level;
+        }
+
+        function endGame() {
+            game.gameOver = true;
+            document.getElementById('finalScore').textContent = game.score;
+            document.getElementById('gameOver').style.display = 'block';
+            showAlert('💀 Game Over! Clique em "Jogar Novamente" para recomeçar.');
+        }
+
+        function restartGame() {
+            game = {
+                player: { x: 200, y: 200, size: 30, color: '#4361ee', speed: 8 },
+                coins: [],
+                enemies: [],
+                score: 0,
+                lives: 3,
+                coinsCollected: 0,
+                level: 1,
+                gameOver: false,
+                keys: {}
+            };
+            
+            document.getElementById('gameOver').style.display = 'none';
+            initGame();
+            updateUI();
+            showAlert('🔄 Jogo reiniciado! Boa sorte!');
+        }
+
+        function createParticlesAt(x, y, color) {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.background = color;
+                    particle.style.left = (x + Math.random() * 30 - 15) + 'px';
+                    particle.style.top = (y + Math.random() * 30 - 15) + 'px';
+                    document.body.appendChild(particle);
+                    
+                    // Animação da partícula
+                    setTimeout(() => {
+                        particle.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`;
+                        particle.style.opacity = '0';
+                        
+                        // Remover após animação
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.parentNode.removeChild(particle);
+                            }
+                        }, 1000);
+                    }, 10);
+                }, i * 50);
+            }
+        }
+
+        function createParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            createParticlesAt(x, y, '#ef476f');
+            
+            // Alternar animação de quicar
+            element.classList.toggle('bouncing');
+        }
+
+        function explainElement(type) {
+            const messages = {
+                player: '🎮 **Jogador**: Você controla este quadrado azul. Use as setas ou botões para se mover e coletar moedas!',
+                coin: '🪙 **Moedas**: Colete estas esferas amarelas para ganhar pontos. Cada moeda vale 10 pontos!',
+                enemy: '👾 **Inimigos**: Evite estas esferas vermelhas! Elas se movem em sua direção e tiram vidas.'
+            };
+            showAlert(messages[type]);
+        }
+
+        function showAlert(message) {
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            alert.innerHTML = message;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 4000);
+        }
+
+        // **CORREÇÃO DO PROBLEMA DAS SETAS**
+        // Sistema de controle de teclado melhorado
+        document.addEventListener('keydown', (e) => {
+            // Prevenir comportamento padrão das setas
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
+            
+            // Registrar tecla pressionada
+            game.keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            // Registrar tecla liberada
+            game.keys[e.key] = false;
+        });
+
+        // Focar no canvas quando clicar para melhor experiência
+        canvas.addEventListener('click', () => {
+            canvas.focus();
+        });
+
+        // Prevenir comportamento padrão do contexto
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Inicializar UI
+        updateUI();
+        showAlert('🎮 Use as setas do teclado ou os botões para mover o jogador azul!');
+
+    </script>
+</body>
+</html>

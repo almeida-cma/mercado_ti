@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 RPA - O Robô que Automatiza Tarefas</title>
+    <style>
+        :root {
+            --primary: #7209b7;
+            --secondary: #3a0ca3;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --robot: #4361ee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .mission {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--robot);
+        }
+        
+        .automation-lab {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .manual-section, .rpa-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            color: #2d3436;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-manual {
+            background: var(--warning);
+            color: #2d3436;
+        }
+        
+        .btn-manual:hover {
+            background: #e6b800;
+            transform: translateY(-2px);
+        }
+        
+        .btn-rpa {
+            background: var(--robot);
+            color: white;
+        }
+        
+        .btn-rpa:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #04a57c;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .time-stat {
+            color: var(--robot);
+        }
+        
+        .tasks-stat {
+            color: var(--success);
+        }
+        
+        .error-stat {
+            color: var(--danger);
+        }
+        
+        .robot-terminal {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: var(--success);
+            font-family: 'Courier New', monospace;
+            height: 200px;
+            overflow-y: auto;
+            border: 2px solid var(--robot);
+        }
+        
+        .terminal-line {
+            margin-bottom: 8px;
+            animation: typewriter 0.1s ease;
+        }
+        
+        .robot-action {
+            color: var(--warning);
+        }
+        
+        .robot-success {
+            color: var(--success);
+        }
+        
+        .robot-error {
+            color: var(--danger);
+        }
+        
+        .comparison {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            color: #2d3436;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .manual-card {
+            background: rgba(255, 209, 102, 0.1);
+            border: 2px solid var(--warning);
+        }
+        
+        .rpa-card {
+            background: rgba(67, 97, 238, 0.1);
+            border: 2px solid var(--robot);
+        }
+        
+        .comparison-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .use-case {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+        
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .progress-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--robot), var(--success));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .robot-visual {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 4rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .explanation {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes typewriter {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--success);
+        }
+        
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+            border: 2px solid var(--robot);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .filling {
+            animation: fill 0.5s ease;
+            background: rgba(67, 97, 238, 0.2) !important;
+        }
+        
+        @keyframes fill {
+            0% { background: white; }
+            50% { background: rgba(67, 97, 238, 0.4); }
+            100% { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 RPA - Automação Robótica de Processos</h1>
+        <p class="intro">Você é o <strong>Especialista em Automação</strong> que cria robôs para executar tarefas repetitivas automaticamente!</p>
+        
+        <div class="mission">
+            <h3>🎯 Sua Missão:</h3>
+            <p>Compare o preenchimento MANUAL vs AUTOMÁTICO de formulários e veja como o RPA economiza tempo!</p>
+            <p>Execute 10 cadastros de cada forma e compare os resultados.</p>
+        </div>
+
+        <div class="automation-lab">
+            <div class="manual-section">
+                <div class="section-title">👤 Processo MANUAL</div>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Preencha o formulário manualmente:
+                </p>
+                
+                <div class="form-group">
+                    <label>Nome Completo:</label>
+                    <input type="text" id="manualName" placeholder="Digite o nome...">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="manualEmail" placeholder="Digite o email...">
+                </div>
+                
+                <div class="form-group">
+                    <label>Telefone:</label>
+                    <input type="tel" id="manualPhone" placeholder="(11) 99999-9999">
+                </div>
+                
+                <div class="form-group">
+                    <label>Cargo:</label>
+                    <select id="manualRole">
+                        <option value="">Selecione...</option>
+                        <option value="Desenvolvedor">Desenvolvedor</option>
+                        <option value="Analista">Analista</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Estagiário">Estagiário</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-manual" onclick="submitManual()">
+                    📝 Cadastrar Manualmente
+                </button>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div>Tempo Médio</div>
+                        <div class="stat-value time-stat" id="manualTime">0s</div>
+                        <div>por cadastro</div>
+                    </div>
+                    <div class="stat">
+                        <div>Cadastros</div>
+                        <div class="stat-value tasks-stat" id="manualCount">0</div>
+                        <div>realizados</div>
+                    </div>
+                    <div class="stat">
+                        <div>Erros</div>
+                        <div class="stat-value error-stat" id="manualErrors">0</div>
+                        <div>cometidos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rpa-section">
+                <div class="section-title">🤖 Processo AUTOMATIZADO (RPA)</div>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Deixe o robô fazer o trabalho pesado:
+                </p>
+                
+                <div class="robot-visual">🤖</div>
+                
+                <button class="btn btn-rpa" onclick="startRPA()" id="rpaBtn">
+                    🚀 Executar RPA (10 cadastros)
+                </button>
+                
+                <div class="progress-container" id="rpaProgress" style="display: none;">
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        Progresso: <span id="rpaProgressText">0/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="rpaProgressFill"></div>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div>Tempo Total</div>
+                        <div class="stat-value time-stat" id="rpaTime">0s</div>
+                        <div>10 cadastros</div>
+                    </div>
+                    <div class="stat">
+                        <div>Cadastros</div>
+                        <div class="stat-value tasks-stat" id="rpaCount">0</div>
+                        <div>realizados</div>
+                    </div>
+                    <div class="stat">
+                        <div>Erros</div>
+                        <div class="stat-value error-stat" id="rpaErrors">0</div>
+                        <div>cometidos</div>
+                    </div>
+                </div>
+                
+                <div class="robot-terminal" id="rpaTerminal">
+                    <div class="terminal-line">🤖 Robô RPA inicializado</div>
+                    <div class="terminal-line">💤 Aguardando comandos...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison">
+            <h3 style="color: var(--primary); text-align: center; margin-bottom: 20px;">⚡ Comparação: Manual vs RPA</h3>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card manual-card">
+                    <div class="comparison-icon">👤</div>
+                    <h4>Processo MANUAL</h4>
+                    <div style="margin: 15px 0;">
+                        <div>⏱️ 20-30 segundos por cadastro</div>
+                        <div>❌ Sujeito a erros humanos</div>
+                        <div>😴 Tarefa repetitiva e cansativa</div>
+                        <div>💸 Custo alto de mão de obra</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-card rpa-card">
+                    <div class="comparison-icon">🤖</div>
+                    <h4>Processo RPA</h4>
+                    <div style="margin: 15px 0;">
+                        <div>⚡ 2-3 segundos por cadastro</div>
+                        <div>✅ 99.9% de precisão</div>
+                        <div>🔄 Execução 24/7 sem cansaço</div>
+                        <div>💰 Custo reduzido em 70%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>🎯 Resultado:</strong> O RPA é <strong>10x mais rápido</strong> e <strong>5x mais barato</strong> que o processo manual para tarefas repetitivas!
+            </div>
+        </div>
+        
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-icon">📧</div>
+                <div><strong>Processamento de Emails</strong></div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                    Extrair dados de emails automaticamente
+                </div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">📊</div>
+                <div><strong>Relatórios Financeiros</strong></div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                    Consolidar dados de múltiplas planilhas
+                </div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">🛒</div>
+                <div><strong>E-commerce</strong></div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                    Atualizar estoque e processar pedidos
+                </div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">🏥</div>
+                <div><strong>Saúde</strong></div>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                    Agendamentos e processamento de exames
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>💡 O que é RPA (Robotic Process Automation)?</h3>
+            <p>RPA é a tecnologia que permite configurar softwares ("robôs") para automatizar tarefas repetitivas que humanos normalmente fariam. É como ter um assistente digital que nunca cansa!</p>
+            
+            <h3>🔧 O que você está fazendo aqui:</h3>
+            <ul>
+                <li><strong>Comparando processos manuais</strong> vs automatizados</li>
+                <li><strong>Executando cadastros em massa</strong> com RPA</li>
+                <li><strong>Analisando métricas</strong> de tempo e eficiência</li>
+                <li><strong>Entendendo os benefícios</strong> da automação</li>
+            </ul>
+            
+            <div style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--robot);">
+                <strong>📈 Dado Interessante:</strong> Empresas que implementam RPA economizam em média <strong>25.000 horas</strong> de trabalho manual por ano! 
+                Isso equivale a 12 funcionários em tempo integral fazendo apenas tarefas repetitivas.
+            </div>
+            
+            <p><strong>Dica:</strong> Execute o RPA várias vezes e compare com seus tempos manuais. Veja como a automação escala perfeitamente para grandes volumes!</p>
+        </div>
+    </div>
+
+    <script>
+        let manualCount = 0;
+        let rpaCount = 0;
+        let manualErrors = 0;
+        let rpaErrors = 0;
+        let totalManualTime = 0;
+        let isRPARunning = false;
+
+        // Dados de exemplo para o RPA
+        const sampleData = [
+            { name: "Ana Silva", email: "ana.silva@email.com", phone: "(11) 99999-1111", role: "Desenvolvedor" },
+            { name: "Carlos Santos", email: "carlos.santos@email.com", phone: "(11) 99999-2222", role: "Analista" },
+            { name: "Marina Oliveira", email: "marina.oliveira@email.com", phone: "(11) 99999-3333", role: "Gerente" },
+            { name: "Pedro Costa", email: "pedro.costa@email.com", phone: "(11) 99999-4444", role: "Estagiário" },
+            { name: "Juliana Lima", email: "juliana.lima@email.com", phone: "(11) 99999-5555", role: "Desenvolvedor" },
+            { name: "Ricardo Alves", email: "ricardo.alves@email.com", phone: "(11) 99999-6666", role: "Analista" },
+            { name: "Fernanda Souza", email: "fernanda.souza@email.com", phone: "(11) 99999-7777", role: "Gerente" },
+            { name: "Bruno Rodrigues", email: "bruno.rodrigues@email.com", phone: "(11) 99999-8888", role: "Estagiário" },
+            { name: "Patrícia Martins", email: "patricia.martins@email.com", phone: "(11) 99999-9999", role: "Desenvolvedor" },
+            { name: "Lucas Ferreira", email: "lucas.ferreira@email.com", phone: "(11) 99999-0000", role: "Analista" }
+        ];
+
+        function submitManual() {
+            const startTime = Date.now();
+            
+            // Validar campos
+            const name = document.getElementById('manualName').value;
+            const email = document.getElementById('manualEmail').value;
+            const phone = document.getElementById('manualPhone').value;
+            const role = document.getElementById('manualRole').value;
+            
+            if (!name || !email || !phone || !role) {
+                manualErrors++;
+                showAlert('❌ Preencha todos os campos antes de cadastrar!');
+                updateStats();
+                return;
+            }
+            
+            // Simular tempo de digitação humana
+            setTimeout(() => {
+                const endTime = Date.now();
+                const timeTaken = (endTime - startTime) / 1000;
+                totalManualTime += timeTaken;
+                manualCount++;
+                
+                // Limpar formulário
+                document.getElementById('manualName').value = '';
+                document.getElementById('manualEmail').value = '';
+                document.getElementById('manualPhone').value = '';
+                document.getElementById('manualRole').value = '';
+                
+                updateStats();
+                showAlert(`✅ Cadastro manual realizado em ${timeTaken.toFixed(1)} segundos!`);
+            }, 2000); // Simula 2 segundos de "digitação"
+        }
+
+        function startRPA() {
+            if (isRPARunning) return;
+            
+            isRPARunning = true;
+            document.getElementById('rpaBtn').disabled = true;
+            document.getElementById('rpaProgress').style.display = 'block';
+            
+            const terminal = document.getElementById('rpaTerminal');
+            terminal.innerHTML = `
+                <div class="terminal-line robot-action">🚀 INICIANDO PROCESSO RPA</div>
+                <div class="terminal-line robot-action">📋 Processando 10 cadastros...</div>
+            `;
+            
+            const startTime = Date.now();
+            let processed = 0;
+            
+            function processNext() {
+                if (processed >= sampleData.length) {
+                    // Finalizar processo
+                    const endTime = Date.now();
+                    const totalTime = (endTime - startTime) / 1000;
+                    
+                    document.getElementById('rpaTime').textContent = `${totalTime.toFixed(1)}s`;
+                    document.getElementById('rpaBtn').disabled = false;
+                    isRPARunning = false;
+                    
+                    terminal.innerHTML += `
+                        <div class="terminal-line robot-success">✅ PROCESSO CONCLUÍDO!</div>
+                        <div class="terminal-line robot-success">⏱️ Tempo total: ${totalTime.toFixed(1)}s</div>
+                        <div class="terminal-line robot-success">📊 ${processed} cadastros realizados</div>
+                        <div class="terminal-line robot-success">🎯 Eficiência: ${(totalTime/processed).toFixed(1)}s por cadastro</div>
+                    `;
+                    
+                    showAlert(`🤖 RPA concluído! ${processed} cadastros em ${totalTime.toFixed(1)} segundos!`);
+                    return;
+                }
+                
+                const data = sampleData[processed];
+                
+                // Simular preenchimento automático com efeito visual
+                simulateTyping('manualName', data.name, 100);
+                setTimeout(() => simulateTyping('manualEmail', data.email, 100), 300);
+                setTimeout(() => simulateTyping('manualPhone', data.phone, 100), 600);
+                setTimeout(() => {
+                    document.getElementById('manualRole').value = data.role;
+                    document.getElementById('manualRole').classList.add('filling');
+                    setTimeout(() => document.getElementById('manualRole').classList.remove('filling'), 500);
+                }, 900);
+                
+                // Registrar no terminal
+                setTimeout(() => {
+                    terminal.innerHTML += `<div class="terminal-line">✅ Cadastro ${processed + 1}: ${data.name}</div>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                    
+                    rpaCount++;
+                    processed++;
+                    
+                    // Atualizar progresso
+                    const progress = (processed / sampleData.length) * 100;
+                    document.getElementById('rpaProgressFill').style.width = `${progress}%`;
+                    document.getElementById('rpaProgressText').textContent = `${processed}/${sampleData.length}`;
+                    
+                    updateStats();
+                    
+                    // Próximo cadastro
+                    setTimeout(processNext, 500);
+                }, 1200);
+            }
+            
+            processNext();
+        }
+
+        function simulateTyping(elementId, text, delay) {
+            const element = document.getElementById(elementId);
+            element.classList.add('filling');
+            element.value = text;
+            setTimeout(() => element.classList.remove('filling'), delay);
+        }
+
+        function updateStats() {
+            // Atualizar estatísticas manuais
+            document.getElementById('manualCount').textContent = manualCount;
+            document.getElementById('manualErrors').textContent = manualErrors;
+            
+            const avgManualTime = manualCount > 0 ? (totalManualTime / manualCount) : 0;
+            document.getElementById('manualTime').textContent = `${avgManualTime.toFixed(1)}s`;
+            
+            // Atualizar estatísticas RPA
+            document.getElementById('rpaCount').textContent = rpaCount;
+            document.getElementById('rpaErrors').textContent = rpaErrors;
+        }
+
+        function showAlert(message) {
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            alert.textContent = message;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 4000);
+        }
+
+        // Inicializar com dados demonstrativos
+        setTimeout(() => {
+            showAlert('💡 Experimente: Faça 1-2 cadastros manuais e depois execute o RPA para ver a diferença!');
+        }, 1000);
+    </script>
+</body>
+</html>
